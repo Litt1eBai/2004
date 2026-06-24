@@ -6,6 +6,15 @@ import re
 from pathlib import Path
 import shutil
 
+# Codegen always emits LF, on every platform. Python text-mode writes translate
+# "\n" -> os.linesep (CRLF on Windows), which makes Windows gradle builds churn every
+# generated file against the LF copies committed from Linux. Patch write_text at the
+# single chokepoint so all call sites stay LF without per-call newline= args.
+_write_text_orig = Path.write_text
+def _write_text_lf(self, data, encoding=None, errors=None, newline="\n"):
+    return _write_text_orig(self, data, encoding=encoding, errors=errors, newline=newline)
+Path.write_text = _write_text_lf
+
 
 ROOT = Path(__file__).resolve().parent.parent
 CONTENT_DIR = ROOT / "content"
