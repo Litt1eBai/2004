@@ -1,0 +1,66 @@
+### Gradle ###
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/**/build/
+
+### IntelliJ IDEA ###
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/**/out/
+
+.run/
+
+### Eclipse ###
+.apt_generated
+.classpath
+.eclipse/
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/**/bin/
+
+### VS Code ###
+.vscode/
+
+### Mac OS ###
+.DS_Store
+
+### Minecraft Modding ###
+run/
+!**/src/**/run/
+**/src/generated/**/.cache/
+repo/
+!**/src/**/repo/
+crash-reports/
+logs/
+hs_err_pid*
+
+### Decompiled / extracted game sources ###
+vendor/minecraft-patched-26.1.2.73-sources/
+
+### Local tooling ###
+.claude/
+.codex/
+.agents/
+AGENTS.md
+CLAUDE.md
+scripts/debug-client-in-idea.ps1
+vendor/neoforge-26.1.2.73-sources/
+
+### Generated / scratch outputs ###
+tmp/
+block-inventory.html
+__pycache__/
+*.py[cod]
+
+### Local planning docs ###
+/*.md
+!/README.md
+TEMPLATE_LICENSE.txt
