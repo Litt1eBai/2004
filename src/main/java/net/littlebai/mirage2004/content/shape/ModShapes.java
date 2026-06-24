@@ -23,17 +23,6 @@ public final class ModShapes {
     private ModShapes() {
     }
 
-    /** Thin vertical facing panel against the NORTH face (z in [0, thickness]). */
-    public static final double EXTERIOR_WALL_THICKNESS = 2.0;
-    public static final Map<Direction, VoxelShape> EXTERIOR_WALL =
-            Shapes.rotateHorizontal(Block.box(0.0, 0.0, 0.0, 16.0, 16.0, EXTERIOR_WALL_THICKNESS));
-
-    /** Low curb strip along the NORTH edge (for 马路牙子 / quarter bricks). */
-    public static final double QUARTER_BRICK_HEIGHT = 8.0;
-    public static final double QUARTER_BRICK_DEPTH = 8.0;
-    public static final Map<Direction, VoxelShape> QUARTER_BRICK =
-            Shapes.rotateHorizontal(Block.box(0.0, 0.0, 0.0, 16.0, QUARTER_BRICK_HEIGHT, QUARTER_BRICK_DEPTH));
-
     /** Vertical corner prism (triangle footprint, full height) — for a future corner block. */
     public static final Map<Direction, VoxelShape> TRIANGLE_WALL =
             Shapes.rotateHorizontal(sideTriangleBase());

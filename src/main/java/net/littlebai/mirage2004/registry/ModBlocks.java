@@ -19,12 +19,10 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 import net.littlebai.mirage2004.Mirage2004;
 import net.littlebai.mirage2004.content.block.TriangleWallBlock;
-import net.littlebai.mirage2004.content.block.ExteriorWallBlock;
 import net.littlebai.mirage2004.content.block.FacingSpecialBlock;
 import net.littlebai.mirage2004.content.block.FramedWindowBlock;
 import net.littlebai.mirage2004.content.block.PoleBlock;
 import net.littlebai.mirage2004.content.block.PrefabWindowBlock;
-import net.littlebai.mirage2004.content.block.QuarterBrickBlock;
 import net.littlebai.mirage2004.content.block.SecurityGrilleBlock;
 import net.littlebai.mirage2004.content.block.SlopeBlock;
 import net.littlebai.mirage2004.content.spec.BuildingBlockDefinition;
@@ -76,10 +74,8 @@ public final class ModBlocks {
             case "wall" -> BLOCKS.registerBlock(definition.id(), WallBlock::new, properties -> applyProperties(properties, definition));
             case "pane" -> BLOCKS.registerBlock(definition.id(), IronBarsBlock::new, properties -> applyProperties(properties, definition));
             case "grille" -> BLOCKS.registerBlock(definition.id(), SecurityGrilleBlock::new, properties -> applyProperties(properties, definition));
-            case "exterior_wall" -> BLOCKS.registerBlock(definition.id(), ExteriorWallBlock::new, properties -> applyProperties(properties, definition));
             case "slope" -> BLOCKS.registerBlock(definition.id(), SlopeBlock::new, properties -> applyProperties(properties, definition));
             case "triangle_wall" -> BLOCKS.registerBlock(definition.id(), TriangleWallBlock::new, properties -> applyProperties(properties, definition));
-            case "quarter_brick" -> BLOCKS.registerBlock(definition.id(), QuarterBrickBlock::new, properties -> applyProperties(properties, definition));
             default -> throw new IllegalArgumentException("Unsupported generated block shape: " + definition.shape());
         };
     }
