@@ -1,0 +1,18 @@
+{
+  "id": "window_glass_panel",
+  "preset": "window_glass_system",
+  "zh": "窗玻璃",
+  "en": "Window Glass",
+  "category": "windows",
+  "renderType": "translucent",
+  "baseTexture": "window_glass_panel",
+  "commonShapes": ["cube", "pane"],
+  "specialShapes": ["window_panel"],
+  "colors": ["blue", "clear", "green"],
+  "blockProps": {
+    "sound": "glass",
+    "hardness": 0.3,
+    "resistance": 0.3,
+    "mapColor": "COLOR_LIGHT_BLUE"
+  }
+}

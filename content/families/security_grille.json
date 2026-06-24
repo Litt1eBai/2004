@@ -1,0 +1,18 @@
+{
+  "id": "security_grille",
+  "preset": "security_grille",
+  "zh": "防盗窗",
+  "en": "Security Grille",
+  "category": "windows",
+  "renderType": "cutout",
+  "baseTexture": "security_grille",
+  "commonShapes": ["grille"],
+  "specialShapes": ["grille_panel", "grille_cap", "grille_arch", "grille_cage", "grille_box"],
+  "colors": ["gray"],
+  "blockProps": {
+    "sound": "stone",
+    "hardness": 2.5,
+    "resistance": 6.0,
+    "mapColor": "STONE"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "id": "painted_cement",
+  "preset": "solid_material",
+  "zh": "水泥",
+  "en": "Cement",
+  "category": "concrete_and_plaster",
+  "renderType": "solid",
+  "baseTexture": "painted_cement",
+  "commonShapes": ["cube", "slab", "stairs", "wall", "slope", "triangle_wall"],
+  "specialShapes": [],
+  "randomVariants": 4,
+  "colors": [
+    "plain",
+    "cream",
+    "orange"
+  ],
+  "blockProps": {
+    "sound": "stone",
+    "hardness": 1.5,
+    "resistance": 6.0,
+    "mapColor": "STONE"
+  }
+}

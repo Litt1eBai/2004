@@ -1,0 +1,9 @@
+{
+  "itemGroup.mirage2004.materials": "Mirage2004 建材",
+  "itemGroup.mirage2004.windows": "Mirage2004 窗户",
+  "itemGroup.mirage2004.infrastructure": "Mirage2004 基础设施",
+
+  "mirage2004.configuration.title": "2004 配置",
+  "mirage2004.configuration.section.mirage2004.common.toml": "2004 配置",
+  "mirage2004.configuration.section.mirage2004.common.toml.title": "2004 配置"
+}

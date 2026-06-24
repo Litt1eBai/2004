@@ -1,0 +1,26 @@
+{
+  "id": "mosaic",
+  "preset": "solid_material",
+  "zh": "马赛克",
+  "en": "Mosaic",
+  "category": "brick_and_tile",
+  "renderType": "solid",
+  "baseTexture": "mosaic",
+  "randomVariants": 4,
+  "commonShapes": ["cube", "slab", "stairs", "wall", "slope"],
+  "specialShapes": [],
+  "colors": [
+    "dusty_mauve_brown",
+    "blue",
+    "emerald_dot",
+    "dusty_mauve_brown_reverse",
+    "blue_reverse",
+    "emerald_dot_reverse"
+  ],
+  "blockProps": {
+    "sound": "stone",
+    "hardness": 1.5,
+    "resistance": 6.0,
+    "mapColor": "STONE"
+  }
+}

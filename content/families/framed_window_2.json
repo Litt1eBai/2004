@@ -1,0 +1,27 @@
+{
+  "id": "framed_window_2",
+  "preset": "framed_window_system",
+  "zh": "带框窗2",
+  "en": "Framed Window II",
+  "category": "windows",
+  "renderType": "translucent",
+  "baseTexture": "steel_window_frame",
+  "frameTexture": "steel_window_frame",
+  "glassTexture": "window_glass_panel",
+  "commonShapes": [],
+  "specialShapes": [],
+  "colors": [],
+  "colorPairs": [
+    ["white", "clear"],
+    ["black", "clear"]
+  ],
+  "pieces": [
+    { "modelPrefix": "pane", "collision": "(0,0,7,16,16,9)" }
+  ],
+  "blockProps": {
+    "sound": "metal",
+    "hardness": 2.0,
+    "resistance": 6.0,
+    "mapColor": "STONE"
+  }
+}

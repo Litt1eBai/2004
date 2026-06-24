@@ -1,0 +1,16 @@
+{
+  "id": "window_and_infra_experimental",
+  "enabled": true,
+  "families": [
+    "steel_window_frame",
+    "window_glass_panel",
+    "security_grille",
+    "concrete_utility_pole",
+    "power_line",
+    "framed_window_1",
+    "framed_window_2",
+    "framed_window_3",
+    "framed_window_slope",
+    "prefab_window_balcony"
+  ]
+}

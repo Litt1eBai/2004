@@ -1,0 +1,9 @@
+{
+  "itemGroup.mirage2004.materials": "Mirage2004 Materials",
+  "itemGroup.mirage2004.windows": "Mirage2004 Windows",
+  "itemGroup.mirage2004.infrastructure": "Mirage2004 Infrastructure",
+
+  "mirage2004.configuration.title": "2004 Configs",
+  "mirage2004.configuration.section.mirage2004.common.toml": "2004 Configs",
+  "mirage2004.configuration.section.mirage2004.common.toml.title": "2004 Configs"
+}
