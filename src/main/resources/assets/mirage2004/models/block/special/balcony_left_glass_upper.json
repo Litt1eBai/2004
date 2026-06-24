@@ -1,0 +1,148 @@
+{
+  "parent": "minecraft:block/block",
+  "render_type": "minecraft:translucent",
+  "textures": {
+    "particle": "#all"
+  },
+  "elements": [
+    {
+      "name": "sash",
+      "from": [
+        3,
+        0,
+        1.5
+      ],
+      "to": [
+        14,
+        7,
+        2.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            3,
+            9,
+            14,
+            16
+          ],
+          "texture": "#all"
+        },
+        "south": {
+          "uv": [
+            3,
+            9,
+            14,
+            16
+          ],
+          "texture": "#all"
+        },
+        "west": {
+          "uv": [
+            1.5,
+            9,
+            2.5,
+            16
+          ],
+          "texture": "#all"
+        },
+        "east": {
+          "uv": [
+            1.5,
+            9,
+            2.5,
+            16
+          ],
+          "texture": "#all"
+        },
+        "up": {
+          "uv": [
+            3,
+            1.5,
+            14,
+            2.5
+          ],
+          "texture": "#all"
+        },
+        "down": {
+          "uv": [
+            3,
+            1.5,
+            14,
+            2.5
+          ],
+          "texture": "#all"
+        }
+      }
+    },
+    {
+      "name": "transom",
+      "from": [
+        3,
+        9,
+        1.5
+      ],
+      "to": [
+        14,
+        14,
+        2.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            3,
+            2,
+            14,
+            7
+          ],
+          "texture": "#all"
+        },
+        "south": {
+          "uv": [
+            3,
+            2,
+            14,
+            7
+          ],
+          "texture": "#all"
+        },
+        "west": {
+          "uv": [
+            1.5,
+            2,
+            2.5,
+            7
+          ],
+          "texture": "#all"
+        },
+        "east": {
+          "uv": [
+            1.5,
+            2,
+            2.5,
+            7
+          ],
+          "texture": "#all"
+        },
+        "up": {
+          "uv": [
+            3,
+            1.5,
+            14,
+            2.5
+          ],
+          "texture": "#all"
+        },
+        "down": {
+          "uv": [
+            3,
+            1.5,
+            14,
+            2.5
+          ],
+          "texture": "#all"
+        }
+      }
+    }
+  ],
+  "comment": "Balcony LEFT, upper glass: sash (y0-7) + transom (y9-14). Z1.5-2.5."
+}

@@ -1,0 +1,79 @@
+{
+  "parent": "minecraft:block/block",
+  "render_type": "minecraft:translucent",
+  "textures": {
+    "particle": "#all"
+  },
+  "elements": [
+    {
+      "name": "casement",
+      "from": [
+        0,
+        2,
+        1.5
+      ],
+      "to": [
+        13,
+        16,
+        2.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            13,
+            14
+          ],
+          "texture": "#all"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            13,
+            14
+          ],
+          "texture": "#all"
+        },
+        "west": {
+          "uv": [
+            1.5,
+            0,
+            2.5,
+            14
+          ],
+          "texture": "#all"
+        },
+        "east": {
+          "uv": [
+            1.5,
+            0,
+            2.5,
+            14
+          ],
+          "texture": "#all"
+        },
+        "up": {
+          "uv": [
+            0,
+            1.5,
+            13,
+            2.5
+          ],
+          "texture": "#all"
+        },
+        "down": {
+          "uv": [
+            0,
+            1.5,
+            13,
+            2.5
+          ],
+          "texture": "#all"
+        }
+      }
+    }
+  ],
+  "comment": "Balcony RIGHT, lower glass: casement pane x0-13 (butts the seam boundary at x0). Z1.5-2.5."
+}

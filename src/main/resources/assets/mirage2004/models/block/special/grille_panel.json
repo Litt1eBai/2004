@@ -1,0 +1,22 @@
+{
+  "comment": "A: flat security grille (平面防盗窗). Thin double-sided panel centered in the cell; bars/holes come from the cutout texture, not geometry. Shared base for all colors via #all. Authored geometry; texture supplied later.",
+  "parent": "minecraft:block/block",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "particle": "#all"
+  },
+  "elements": [
+    {
+      "from": [0, 0, 7],
+      "to": [16, 16, 9],
+      "faces": {
+        "north": { "uv": [0, 0, 16, 16], "texture": "#all" },
+        "south": { "uv": [0, 0, 16, 16], "texture": "#all" },
+        "east":  { "uv": [7, 0, 9, 16], "texture": "#all" },
+        "west":  { "uv": [7, 0, 9, 16], "texture": "#all" },
+        "up":    { "uv": [0, 7, 16, 9], "texture": "#all" },
+        "down":  { "uv": [0, 7, 16, 9], "texture": "#all" }
+      }
+    }
+  ]
+}

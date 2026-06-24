@@ -1,0 +1,79 @@
+{
+  "parent": "minecraft:block/block",
+  "render_type": "minecraft:translucent",
+  "textures": {
+    "particle": "#all"
+  },
+  "elements": [
+    {
+      "name": "casement",
+      "from": [
+        3,
+        2,
+        1.5
+      ],
+      "to": [
+        14,
+        16,
+        2.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            3,
+            0,
+            14,
+            14
+          ],
+          "texture": "#all"
+        },
+        "south": {
+          "uv": [
+            3,
+            0,
+            14,
+            14
+          ],
+          "texture": "#all"
+        },
+        "west": {
+          "uv": [
+            1.5,
+            0,
+            2.5,
+            14
+          ],
+          "texture": "#all"
+        },
+        "east": {
+          "uv": [
+            1.5,
+            0,
+            2.5,
+            14
+          ],
+          "texture": "#all"
+        },
+        "up": {
+          "uv": [
+            3,
+            1.5,
+            14,
+            2.5
+          ],
+          "texture": "#all"
+        },
+        "down": {
+          "uv": [
+            3,
+            1.5,
+            14,
+            2.5
+          ],
+          "texture": "#all"
+        }
+      }
+    }
+  ],
+  "comment": "Balcony LEFT, lower glass: casement pane x3-14 (butts centre mullion), above sill. Z1.5-2.5."
+}

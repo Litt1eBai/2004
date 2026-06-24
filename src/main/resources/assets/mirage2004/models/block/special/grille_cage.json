@@ -1,0 +1,63 @@
+{
+  "comment": "B approach 1: protruding shelf cage (凸出托台防盗笼). A closed barred box that sticks out 6px toward the facing side (north canonical = -Z). Solid-ish floor tray + top + 4 thin walls; bars/holes come from the cutout texture. Place things on top (cell above; full collision -> sturdy up-face). Texture supplied later.",
+  "parent": "minecraft:block/block",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "particle": "#all"
+  },
+  "elements": [
+    {
+      "name": "floor_tray",
+      "from": [0, 0, -6],
+      "to": [16, 2, 0],
+      "faces": {
+        "north": { "uv": [0, 14, 16, 16], "texture": "#all" },
+        "up":    { "uv": [0, 0, 16, 6], "texture": "#all" },
+        "down":  { "uv": [0, 0, 16, 6], "texture": "#all" },
+        "east":  { "uv": [10, 14, 16, 16], "texture": "#all" },
+        "west":  { "uv": [10, 14, 16, 16], "texture": "#all" }
+      }
+    },
+    {
+      "name": "top",
+      "from": [0, 14, -6],
+      "to": [16, 16, 0],
+      "faces": {
+        "north": { "uv": [0, 0, 16, 2], "texture": "#all" },
+        "up":    { "uv": [0, 0, 16, 6], "texture": "#all" },
+        "down":  { "uv": [0, 0, 16, 6], "texture": "#all" },
+        "east":  { "uv": [10, 0, 16, 2], "texture": "#all" },
+        "west":  { "uv": [10, 0, 16, 2], "texture": "#all" }
+      }
+    },
+    {
+      "name": "wall_left",
+      "from": [0, 2, -6],
+      "to": [2, 14, 0],
+      "faces": {
+        "north": { "uv": [0, 2, 2, 14], "texture": "#all" },
+        "east":  { "uv": [10, 2, 16, 14], "texture": "#all" },
+        "west":  { "uv": [10, 2, 16, 14], "texture": "#all" }
+      }
+    },
+    {
+      "name": "wall_right",
+      "from": [14, 2, -6],
+      "to": [16, 14, 0],
+      "faces": {
+        "north": { "uv": [14, 2, 16, 14], "texture": "#all" },
+        "east":  { "uv": [10, 2, 16, 14], "texture": "#all" },
+        "west":  { "uv": [10, 2, 16, 14], "texture": "#all" }
+      }
+    },
+    {
+      "name": "front_bars",
+      "from": [2, 2, -6],
+      "to": [14, 14, -5],
+      "faces": {
+        "north": { "uv": [2, 2, 14, 14], "texture": "#all" },
+        "south": { "uv": [2, 2, 14, 14], "texture": "#all" }
+      }
+    }
+  ]
+}

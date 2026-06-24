@@ -1,0 +1,32 @@
+{
+  "comment": "防盗窗顶框小片 (NORTH-authored, 开槽/notched). TWO strips at x4.5-7 and x9-11.5 that AVOID the x7-9 pane core band, so the cap is never coplanar with (nor overlapping) the pane side/post top faces — that internal coplanar pane strip was the real z-fighting source (findings #1), NOT the neighbour boundary. Pulled 1px off the boundary (z starts at 1) and reaching the pane center (z=8) so opposite caps tile along a straight run with no seam. CAVEAT: at L/T/X corners the perpendicular caps still overlap slightly (findings #2) — accepted for the common straight-run case. Multipart rotates (y) per connected side; shown only where the run is capped (TOP). #top = horizontal (顶面) face, #all = vertical (立面) face; cutout.",
+  "parent": "minecraft:block/block",
+  "render_type": "minecraft:cutout",
+  "textures": { "particle": "#all" },
+  "elements": [
+    {
+      "from": [4.5, 14, 1],
+      "to": [7, 16, 8],
+      "faces": {
+        "up":    { "uv": [4.5, 1, 7, 8], "texture": "#top" },
+        "down":  { "uv": [4.5, 1, 7, 8], "texture": "#top" },
+        "north": { "uv": [4.5, 0, 7, 2], "texture": "#all" },
+        "south": { "uv": [4.5, 0, 7, 2], "texture": "#all" },
+        "east":  { "uv": [1, 0, 8, 2], "texture": "#all" },
+        "west":  { "uv": [1, 0, 8, 2], "texture": "#all" }
+      }
+    },
+    {
+      "from": [9, 14, 1],
+      "to": [11.5, 16, 8],
+      "faces": {
+        "up":    { "uv": [9, 1, 11.5, 8], "texture": "#top" },
+        "down":  { "uv": [9, 1, 11.5, 8], "texture": "#top" },
+        "north": { "uv": [9, 0, 11.5, 2], "texture": "#all" },
+        "south": { "uv": [9, 0, 11.5, 2], "texture": "#all" },
+        "east":  { "uv": [1, 0, 8, 2], "texture": "#all" },
+        "west":  { "uv": [1, 0, 8, 2], "texture": "#all" }
+      }
+    }
+  ]
+}
