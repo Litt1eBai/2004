@@ -1,0 +1,8 @@
+{
+  "loader": "mirage2004:triangle_wall",
+  "textures": {
+    "particle": "#all",
+    "all": "mirage2004:block/small_tile_sunlit_mustard",
+    "slope": "mirage2004:block/small_tile_slope_sunlit_mustard"
+  }
+}

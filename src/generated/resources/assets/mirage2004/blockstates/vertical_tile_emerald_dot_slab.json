@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "mirage2004:block/vertical_tile_emerald_dot_slab"
+    },
+    "type=top": {
+      "model": "mirage2004:block/vertical_tile_emerald_dot_slab_top"
+    },
+    "type=double": {
+      "model": "mirage2004:block/vertical_tile_emerald_dot"
+    }
+  }
+}

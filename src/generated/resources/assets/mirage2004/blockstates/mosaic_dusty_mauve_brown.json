@@ -1,0 +1,18 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "mirage2004:block/mosaic_dusty_mauve_brown"
+      },
+      {
+        "model": "mirage2004:block/mosaic_dusty_mauve_brown_1"
+      },
+      {
+        "model": "mirage2004:block/mosaic_dusty_mauve_brown_2"
+      },
+      {
+        "model": "mirage2004:block/mosaic_dusty_mauve_brown_3"
+      }
+    ]
+  }
+}

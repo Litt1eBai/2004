@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "mirage2004:mosaic_dusty_mauve_brown_slope"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "mirage2004:blocks/mosaic_dusty_mauve_brown_slope"
+}

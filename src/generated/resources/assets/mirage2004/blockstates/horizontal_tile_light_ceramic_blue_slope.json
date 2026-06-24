@@ -1,0 +1,38 @@
+{
+  "variants": {
+    "facing=north,half=bottom": {
+      "model": "mirage2004:block/horizontal_tile_light_ceramic_blue_slope"
+    },
+    "facing=north,half=top": {
+      "model": "mirage2004:block/horizontal_tile_light_ceramic_blue_slope",
+      "x": 180
+    },
+    "facing=east,half=bottom": {
+      "model": "mirage2004:block/horizontal_tile_light_ceramic_blue_slope",
+      "y": 90
+    },
+    "facing=east,half=top": {
+      "model": "mirage2004:block/horizontal_tile_light_ceramic_blue_slope",
+      "x": 180,
+      "y": 90
+    },
+    "facing=south,half=bottom": {
+      "model": "mirage2004:block/horizontal_tile_light_ceramic_blue_slope",
+      "y": 180
+    },
+    "facing=south,half=top": {
+      "model": "mirage2004:block/horizontal_tile_light_ceramic_blue_slope",
+      "x": 180,
+      "y": 180
+    },
+    "facing=west,half=bottom": {
+      "model": "mirage2004:block/horizontal_tile_light_ceramic_blue_slope",
+      "y": 270
+    },
+    "facing=west,half=top": {
+      "model": "mirage2004:block/horizontal_tile_light_ceramic_blue_slope",
+      "x": 180,
+      "y": 270
+    }
+  }
+}

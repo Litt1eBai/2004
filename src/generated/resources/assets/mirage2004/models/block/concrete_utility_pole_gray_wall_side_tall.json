@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_wall_side_tall",
+  "textures": {
+    "wall": "mirage2004:block/concrete_utility_pole_gray"
+  }
+}

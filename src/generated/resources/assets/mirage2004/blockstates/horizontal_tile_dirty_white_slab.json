@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "mirage2004:block/horizontal_tile_dirty_white_slab"
+    },
+    "type=top": {
+      "model": "mirage2004:block/horizontal_tile_dirty_white_slab_top"
+    },
+    "type=double": {
+      "model": "mirage2004:block/horizontal_tile_dirty_white"
+    }
+  }
+}

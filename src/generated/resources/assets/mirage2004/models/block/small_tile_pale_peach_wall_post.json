@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_wall_post",
+  "textures": {
+    "wall": "mirage2004:block/small_tile_pale_peach"
+  }
+}

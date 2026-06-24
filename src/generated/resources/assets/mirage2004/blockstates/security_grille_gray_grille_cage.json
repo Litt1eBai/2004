@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "mirage2004:block/security_grille_gray_grille_cage"
+    },
+    "facing=east": {
+      "model": "mirage2004:block/security_grille_gray_grille_cage",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "mirage2004:block/security_grille_gray_grille_cage",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "mirage2004:block/security_grille_gray_grille_cage",
+      "y": 270
+    }
+  }
+}

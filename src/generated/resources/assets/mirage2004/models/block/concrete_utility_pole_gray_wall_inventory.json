@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "mirage2004:block/concrete_utility_pole_gray"
+  }
+}

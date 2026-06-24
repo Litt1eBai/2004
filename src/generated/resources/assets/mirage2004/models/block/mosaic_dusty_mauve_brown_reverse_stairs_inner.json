@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "mirage2004:block/mosaic_dusty_mauve_brown_reverse",
+    "top": "mirage2004:block/mosaic_dusty_mauve_brown_reverse",
+    "side": "mirage2004:block/mosaic_dusty_mauve_brown_reverse"
+  }
+}

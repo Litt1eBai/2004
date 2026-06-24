@@ -1,0 +1,18 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "mirage2004:block/mosaic_emerald_dot"
+      },
+      {
+        "model": "mirage2004:block/mosaic_emerald_dot_1"
+      },
+      {
+        "model": "mirage2004:block/mosaic_emerald_dot_2"
+      },
+      {
+        "model": "mirage2004:block/mosaic_emerald_dot_3"
+      }
+    ]
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "loader": "mirage2004:slope",
+  "textures": {
+    "particle": "#all",
+    "all": "mirage2004:block/horizontal_tile_pale_cream",
+    "slope": "mirage2004:block/horizontal_tile_pale_cream"
+  }
+}

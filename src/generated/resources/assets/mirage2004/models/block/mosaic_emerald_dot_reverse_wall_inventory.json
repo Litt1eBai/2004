@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "mirage2004:block/mosaic_emerald_dot_reverse"
+  }
+}

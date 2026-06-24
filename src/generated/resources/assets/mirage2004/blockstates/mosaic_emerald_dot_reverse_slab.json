@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "mirage2004:block/mosaic_emerald_dot_reverse_slab"
+    },
+    "type=top": {
+      "model": "mirage2004:block/mosaic_emerald_dot_reverse_slab_top"
+    },
+    "type=double": {
+      "model": "mirage2004:block/mosaic_emerald_dot_reverse"
+    }
+  }
+}

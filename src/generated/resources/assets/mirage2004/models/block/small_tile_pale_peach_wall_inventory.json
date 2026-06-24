@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "mirage2004:block/small_tile_pale_peach"
+  }
+}

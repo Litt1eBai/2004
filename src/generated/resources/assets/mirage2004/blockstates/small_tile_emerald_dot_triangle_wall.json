@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "mirage2004:block/small_tile_emerald_dot_triangle_wall"
+    },
+    "facing=east": {
+      "model": "mirage2004:block/small_tile_emerald_dot_triangle_wall",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "mirage2004:block/small_tile_emerald_dot_triangle_wall",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "mirage2004:block/small_tile_emerald_dot_triangle_wall",
+      "y": 270
+    }
+  }
+}

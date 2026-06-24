@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "mirage2004:security_grille_gray_grille_cage"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "mirage2004:blocks/security_grille_gray_grille_cage"
+}

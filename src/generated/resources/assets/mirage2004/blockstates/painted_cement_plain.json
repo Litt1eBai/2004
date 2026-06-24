@@ -1,0 +1,18 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "mirage2004:block/painted_cement_plain"
+      },
+      {
+        "model": "mirage2004:block/painted_cement_plain_1"
+      },
+      {
+        "model": "mirage2004:block/painted_cement_plain_2"
+      },
+      {
+        "model": "mirage2004:block/painted_cement_plain_3"
+      }
+    ]
+  }
+}

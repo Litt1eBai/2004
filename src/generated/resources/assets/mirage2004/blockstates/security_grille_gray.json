@@ -1,0 +1,155 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "mirage2004:block/security_grille_gray_post"
+      }
+    },
+    {
+      "when": {
+        "north": "true"
+      },
+      "apply": {
+        "model": "mirage2004:block/security_grille_gray_side"
+      }
+    },
+    {
+      "when": {
+        "east": "true"
+      },
+      "apply": {
+        "model": "mirage2004:block/security_grille_gray_side",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "south": "true"
+      },
+      "apply": {
+        "model": "mirage2004:block/security_grille_gray_side_alt"
+      }
+    },
+    {
+      "when": {
+        "west": "true"
+      },
+      "apply": {
+        "model": "mirage2004:block/security_grille_gray_side_alt",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "north": "false"
+      },
+      "apply": {
+        "model": "mirage2004:block/security_grille_gray_noside"
+      }
+    },
+    {
+      "when": {
+        "east": "false"
+      },
+      "apply": {
+        "model": "mirage2004:block/security_grille_gray_noside_alt"
+      }
+    },
+    {
+      "when": {
+        "south": "false"
+      },
+      "apply": {
+        "model": "mirage2004:block/security_grille_gray_noside_alt",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "west": "false"
+      },
+      "apply": {
+        "model": "mirage2004:block/security_grille_gray_noside",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "top": "true",
+        "north": "true"
+      },
+      "apply": {
+        "model": "mirage2004:block/security_grille_gray_cap_arm_top"
+      }
+    },
+    {
+      "when": {
+        "top": "true",
+        "east": "true"
+      },
+      "apply": {
+        "model": "mirage2004:block/security_grille_gray_cap_arm_top",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "top": "true",
+        "south": "true"
+      },
+      "apply": {
+        "model": "mirage2004:block/security_grille_gray_cap_arm_top",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "top": "true",
+        "west": "true"
+      },
+      "apply": {
+        "model": "mirage2004:block/security_grille_gray_cap_arm_top",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "bottom": "true",
+        "north": "true"
+      },
+      "apply": {
+        "model": "mirage2004:block/security_grille_gray_cap_arm_bottom"
+      }
+    },
+    {
+      "when": {
+        "bottom": "true",
+        "east": "true"
+      },
+      "apply": {
+        "model": "mirage2004:block/security_grille_gray_cap_arm_bottom",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "bottom": "true",
+        "south": "true"
+      },
+      "apply": {
+        "model": "mirage2004:block/security_grille_gray_cap_arm_bottom",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "bottom": "true",
+        "west": "true"
+      },
+      "apply": {
+        "model": "mirage2004:block/security_grille_gray_cap_arm_bottom",
+        "y": 270
+      }
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": {
+      "force_translucent": true,
+      "sprite": "mirage2004:block/curtain_glass_clear"
+    }
+  },
+  "render_type": "minecraft:translucent"
+}

@@ -1,0 +1,160 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "facing": "north",
+        "half": "lower"
+      },
+      "apply": {
+        "model": "mirage2004:block/prefab_window_balcony_black_blue_balcony_left_frame_lower"
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "half": "lower"
+      },
+      "apply": {
+        "model": "mirage2004:block/prefab_window_balcony_black_blue_balcony_left_glass_lower"
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "half": "upper"
+      },
+      "apply": {
+        "model": "mirage2004:block/prefab_window_balcony_black_blue_balcony_left_frame_upper"
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "half": "upper"
+      },
+      "apply": {
+        "model": "mirage2004:block/prefab_window_balcony_black_blue_balcony_left_glass_upper"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "half": "lower"
+      },
+      "apply": {
+        "model": "mirage2004:block/prefab_window_balcony_black_blue_balcony_left_frame_lower",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "half": "lower"
+      },
+      "apply": {
+        "model": "mirage2004:block/prefab_window_balcony_black_blue_balcony_left_glass_lower",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "half": "upper"
+      },
+      "apply": {
+        "model": "mirage2004:block/prefab_window_balcony_black_blue_balcony_left_frame_upper",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "half": "upper"
+      },
+      "apply": {
+        "model": "mirage2004:block/prefab_window_balcony_black_blue_balcony_left_glass_upper",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "half": "lower"
+      },
+      "apply": {
+        "model": "mirage2004:block/prefab_window_balcony_black_blue_balcony_left_frame_lower",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "half": "lower"
+      },
+      "apply": {
+        "model": "mirage2004:block/prefab_window_balcony_black_blue_balcony_left_glass_lower",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "half": "upper"
+      },
+      "apply": {
+        "model": "mirage2004:block/prefab_window_balcony_black_blue_balcony_left_frame_upper",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "half": "upper"
+      },
+      "apply": {
+        "model": "mirage2004:block/prefab_window_balcony_black_blue_balcony_left_glass_upper",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "half": "lower"
+      },
+      "apply": {
+        "model": "mirage2004:block/prefab_window_balcony_black_blue_balcony_left_frame_lower",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "half": "lower"
+      },
+      "apply": {
+        "model": "mirage2004:block/prefab_window_balcony_black_blue_balcony_left_glass_lower",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "half": "upper"
+      },
+      "apply": {
+        "model": "mirage2004:block/prefab_window_balcony_black_blue_balcony_left_frame_upper",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "half": "upper"
+      },
+      "apply": {
+        "model": "mirage2004:block/prefab_window_balcony_black_blue_balcony_left_glass_upper",
+        "y": 270
+      }
+    }
+  ]
+}

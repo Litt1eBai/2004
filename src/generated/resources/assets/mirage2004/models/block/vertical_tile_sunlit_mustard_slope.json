@@ -1,0 +1,8 @@
+{
+  "loader": "mirage2004:slope",
+  "textures": {
+    "particle": "#all",
+    "all": "mirage2004:block/vertical_tile_sunlit_mustard",
+    "slope": "mirage2004:block/vertical_tile_sunlit_mustard"
+  }
+}

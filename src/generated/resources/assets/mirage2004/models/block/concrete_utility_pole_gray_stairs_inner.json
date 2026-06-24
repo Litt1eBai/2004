@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "mirage2004:block/concrete_utility_pole_gray",
+    "top": "mirage2004:block/concrete_utility_pole_gray",
+    "side": "mirage2004:block/concrete_utility_pole_gray"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "mirage2004:vertical_tile_dirty_white"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "mirage2004:blocks/vertical_tile_dirty_white"
+}

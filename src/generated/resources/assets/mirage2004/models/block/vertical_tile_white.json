@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "mirage2004:block/vertical_tile_white"
+  }
+}

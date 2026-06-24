@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:impermeable",
+    "mirage2004:curtain_glass_blue",
+    "mirage2004:curtain_glass_clear",
+    "mirage2004:curtain_glass_green",
+    "mirage2004:window_glass_panel_blue",
+    "mirage2004:window_glass_panel_clear",
+    "mirage2004:window_glass_panel_green"
+  ]
+}

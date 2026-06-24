@@ -1,0 +1,8 @@
+{
+  "loader": "mirage2004:triangle_wall",
+  "textures": {
+    "particle": "#all",
+    "all": "mirage2004:block/vertical_tile_light_ceramic_blue",
+    "slope": "mirage2004:block/vertical_tile_light_ceramic_blue"
+  }
+}

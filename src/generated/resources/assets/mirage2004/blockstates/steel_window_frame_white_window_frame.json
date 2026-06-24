@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "mirage2004:block/steel_window_frame_white_window_frame"
+    },
+    "facing=east": {
+      "model": "mirage2004:block/steel_window_frame_white_window_frame",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "mirage2004:block/steel_window_frame_white_window_frame",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "mirage2004:block/steel_window_frame_white_window_frame",
+      "y": 270
+    }
+  }
+}

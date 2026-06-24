@@ -1,0 +1,8 @@
+{
+  "loader": "mirage2004:slope",
+  "textures": {
+    "particle": "#all",
+    "all": "mirage2004:block/small_tile_mosaic_blue",
+    "slope": "mirage2004:block/small_tile_slope_mosaic_blue"
+  }
+}
