@@ -200,27 +200,6 @@
     ],
     "special": [
       {
-        "id": "window_frame",
-        "produce": "special",
-        "kit": "static",
-        "zh": "窗框",
-        "en": "Window Frame"
-      },
-      {
-        "id": "window_frame_cross",
-        "produce": "special",
-        "kit": "static",
-        "zh": "十字窗框",
-        "en": "Cross Window Frame"
-      },
-      {
-        "id": "window_frame_corner",
-        "produce": "special",
-        "kit": "static",
-        "zh": "转角窗框",
-        "en": "Corner Window Frame"
-      },
-      {
         "id": "window_panel",
         "produce": "special",
         "kit": "static",
@@ -375,13 +354,6 @@
         "grille_arch",
         "grille_cage",
         "grille_box"
-      ]
-    },
-    "steel_window_frame": {
-      "special": [
-        "window_frame",
-        "window_frame_cross",
-        "window_frame_corner"
       ]
     },
     "concrete_utility_pole": {
@@ -587,19 +559,6 @@
       "material": "glass"
     },
     {
-      "id": "steel_window_frame",
-      "preset": "window_frame_system",
-      "zh": "钢窗框",
-      "en": "Steel Window Frame",
-      "category": "windows",
-      "renderType": "cutout",
-      "baseTexture": "steel_window_frame",
-      "colors": [
-        "white"
-      ],
-      "material": "steel_frame"
-    },
-    {
       "id": "window_glass_panel",
       "preset": "window_glass_system",
       "zh": "窗玻璃",
@@ -789,7 +748,6 @@
       "id": "window_and_infra",
       "enabled": true,
       "families": [
-        "steel_window_frame",
         "window_glass_panel",
         "security_grille",
         "concrete_utility_pole",
@@ -6368,69 +6326,6 @@
       "connectsBy": "",
       "randomVariants": 1,
       "slopeFace": "curtain_glass_green"
-    },
-    {
-      "id": "steel_window_frame_white_window_frame",
-      "baseId": "steel_window_frame_white",
-      "familyId": "steel_window_frame",
-      "preset": "window_frame_system",
-      "colorId": "white",
-      "shape": "window_frame",
-      "zhName": "白钢窗框窗框",
-      "enName": "White Steel Window Frame Window Frame",
-      "category": "windows",
-      "renderType": "cutout",
-      "texturePath": "steel_window_frame_white",
-      "sound": "stone",
-      "hardness": 2.0,
-      "resistance": 6.0,
-      "mapColor": "STONE",
-      "kit": "static",
-      "modelPrefix": "window_frame",
-      "collision": "full",
-      "connectsBy": ""
-    },
-    {
-      "id": "steel_window_frame_white_window_frame_cross",
-      "baseId": "steel_window_frame_white",
-      "familyId": "steel_window_frame",
-      "preset": "window_frame_system",
-      "colorId": "white",
-      "shape": "window_frame_cross",
-      "zhName": "白钢窗框十字窗框",
-      "enName": "White Steel Window Frame Cross Window Frame",
-      "category": "windows",
-      "renderType": "cutout",
-      "texturePath": "steel_window_frame_white",
-      "sound": "stone",
-      "hardness": 2.0,
-      "resistance": 6.0,
-      "mapColor": "STONE",
-      "kit": "static",
-      "modelPrefix": "window_frame_cross",
-      "collision": "full",
-      "connectsBy": ""
-    },
-    {
-      "id": "steel_window_frame_white_window_frame_corner",
-      "baseId": "steel_window_frame_white",
-      "familyId": "steel_window_frame",
-      "preset": "window_frame_system",
-      "colorId": "white",
-      "shape": "window_frame_corner",
-      "zhName": "白钢窗框转角窗框",
-      "enName": "White Steel Window Frame Corner Window Frame",
-      "category": "windows",
-      "renderType": "cutout",
-      "texturePath": "steel_window_frame_white",
-      "sound": "stone",
-      "hardness": 2.0,
-      "resistance": 6.0,
-      "mapColor": "STONE",
-      "kit": "static",
-      "modelPrefix": "window_frame_corner",
-      "collision": "full",
-      "connectsBy": ""
     },
     {
       "id": "window_glass_panel_blue",

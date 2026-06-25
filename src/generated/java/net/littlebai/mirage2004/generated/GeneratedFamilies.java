@@ -93,18 +93,6 @@ public final class GeneratedFamilies {
                     List.of("blue", "clear", "green"),
                     new BlockPropertySpec("glass", 0.3, 0.3, "COLOR_LIGHT_BLUE")),
             new MaterialFamilySpec(
-                    "steel_window_frame",
-                    "window_frame_system",
-                    "钢窗框",
-                    "Steel Window Frame",
-                    "windows",
-                    "cutout",
-                    "steel_window_frame",
-                    List.of(),
-                    List.of("window_frame", "window_frame_cross", "window_frame_corner"),
-                    List.of("white"),
-                    new BlockPropertySpec("stone", 2.0, 6.0, "STONE")),
-            new MaterialFamilySpec(
                     "window_glass_panel",
                     "window_glass_system",
                     "窗玻璃",

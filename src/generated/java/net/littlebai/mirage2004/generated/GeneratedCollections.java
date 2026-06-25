@@ -13,7 +13,7 @@ public final class GeneratedCollections {
     public static final ContentCollectionSpec WINDOW_AND_INFRA = new ContentCollectionSpec(
             "window_and_infra",
             true,
-            List.of("steel_window_frame", "window_glass_panel", "security_grille", "concrete_utility_pole", "power_line", "framed_window_1", "framed_window_2", "framed_window_3", "framed_window_slope", "prefab_window_balcony"));
+            List.of("window_glass_panel", "security_grille", "concrete_utility_pole", "power_line", "framed_window_1", "framed_window_2", "framed_window_3", "framed_window_slope", "prefab_window_balcony"));
 
     public static final List<ContentCollectionSpec> COLLECTIONS = List.of(QIANXI_CORE, WINDOW_AND_INFRA);
 
