@@ -64,3 +64,7 @@ __pycache__/
 /*.md
 !/README.md
 TEMPLATE_LICENSE.txt
+
+# External (local) content source — not tracked; committed src/generated is the build record
+content/mirage.xlsx
+content/*.xlsx.tmp

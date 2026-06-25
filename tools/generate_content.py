@@ -2105,6 +2105,13 @@ def write_grille_connect_tag(blocks: list[dict]):
 
 
 def main():
+    # mirage.xlsx is an EXTERNAL source (gitignored): the maintainer keeps it locally and the
+    # committed src/generated is the build-time record. On a clone / CI without the spreadsheet,
+    # do nothing and leave the committed outputs in place rather than wiping them.
+    if not (CONTENT_DIR / "mirage.xlsx").exists():
+        print("content/mirage.xlsx not present (external source); leaving committed src/generated unchanged.")
+        return
+
     reset_generated_outputs()
     colors, color_map, material_map, families, collections, base_en, base_zh, block_types, apply_map, singles = load_content()
     validate_content(colors, material_map, families, collections)
