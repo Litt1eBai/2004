@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_glass_pane_noside_alt",
+  "textures": {
+    "pane": "mirage2004:block/security_grille_gray"
+  },
+  "render_type": "minecraft:cutout"
+}

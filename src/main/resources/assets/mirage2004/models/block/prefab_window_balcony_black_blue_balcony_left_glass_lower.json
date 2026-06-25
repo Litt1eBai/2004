@@ -1,0 +1,11 @@
+{
+  "parent": "mirage2004:block/special/balcony_left_glass_lower",
+  "render_type": "minecraft:translucent",
+  "textures": {
+    "all": {
+      "force_translucent": true,
+      "sprite": "mirage2004:block/window_glass_panel_blue"
+    },
+    "particle": "mirage2004:block/window_glass_panel_blue"
+  }
+}

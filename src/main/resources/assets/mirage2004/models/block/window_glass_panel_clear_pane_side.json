@@ -1,0 +1,14 @@
+{
+  "parent": "minecraft:block/template_glass_pane_side",
+  "textures": {
+    "pane": {
+      "force_translucent": true,
+      "sprite": "mirage2004:block/window_glass_panel_clear"
+    },
+    "edge": {
+      "force_translucent": true,
+      "sprite": "mirage2004:block/window_glass_panel_clear"
+    }
+  },
+  "render_type": "minecraft:translucent"
+}

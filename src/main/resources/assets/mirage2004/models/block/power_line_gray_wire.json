@@ -1,0 +1,6 @@
+{
+  "parent": "mirage2004:block/special/wire",
+  "textures": {
+    "all": "mirage2004:block/power_line_gray"
+  }
+}

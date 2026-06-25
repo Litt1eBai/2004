@@ -1,0 +1,6 @@
+{
+  "parent": "mirage2004:block/special/pole_none",
+  "textures": {
+    "all": "mirage2004:block/concrete_utility_pole_gray"
+  }
+}

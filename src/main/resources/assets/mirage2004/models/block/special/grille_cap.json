@@ -1,0 +1,35 @@
+{
+  "comment": "Security grille cap/header (防盗窗顶盖). Caps the top of a grille run: a narrow grille skirt below, crowned by a horizontal cap molding that protrudes 1px to each side (z 6-10) and spans the full width. Bars/holes come from the cutout texture. Shared base for all colors via #all. Texture supplied later.",
+  "parent": "minecraft:block/block",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "particle": "#all"
+  },
+  "elements": [
+    {
+      "name": "skirt",
+      "from": [2, 0, 7],
+      "to": [14, 12, 9],
+      "faces": {
+        "north": {"uv": [2, 4, 14, 16], "texture": "#all"},
+        "south": {"uv": [2, 4, 14, 16], "texture": "#all"},
+        "east":  {"uv": [7, 4, 9, 16], "texture": "#all"},
+        "west":  {"uv": [7, 4, 9, 16], "texture": "#all"},
+        "down":  {"uv": [2, 7, 14, 9], "texture": "#all"}
+      }
+    },
+    {
+      "name": "cap",
+      "from": [0, 12, 6],
+      "to": [16, 16, 10],
+      "faces": {
+        "north": {"uv": [0, 0, 16, 4], "texture": "#all"},
+        "south": {"uv": [0, 0, 16, 4], "texture": "#all"},
+        "east":  {"uv": [6, 0, 10, 4], "texture": "#all"},
+        "west":  {"uv": [6, 0, 10, 4], "texture": "#all"},
+        "up":    {"uv": [0, 6, 16, 10], "texture": "#all"},
+        "down":  {"uv": [0, 6, 16, 10], "texture": "#all"}
+      }
+    }
+  ]
+}

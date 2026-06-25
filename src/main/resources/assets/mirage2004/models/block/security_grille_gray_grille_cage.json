@@ -1,0 +1,6 @@
+{
+  "parent": "mirage2004:block/special/grille_cage",
+  "textures": {
+    "all": "mirage2004:block/security_grille_gray"
+  }
+}

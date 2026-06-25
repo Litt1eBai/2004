@@ -1,0 +1,23 @@
+{
+  "comment": "Window glass panel (窗玻璃 special). A single thin glass sheet centered in the cell (z 7.5-8.5), full 16x16 face. Translucent render so colored glass tints correctly. Shared base for all colors via #all. Texture supplied later.",
+  "parent": "minecraft:block/block",
+  "render_type": "minecraft:translucent",
+  "textures": {
+    "particle": "#all"
+  },
+  "elements": [
+    {
+      "name": "glass",
+      "from": [0, 0, 7.5],
+      "to": [16, 16, 8.5],
+      "faces": {
+        "north": {"uv": [0, 0, 16, 16], "texture": "#all"},
+        "south": {"uv": [0, 0, 16, 16], "texture": "#all"},
+        "east":  {"uv": [7, 0, 9, 16], "texture": "#all"},
+        "west":  {"uv": [7, 0, 9, 16], "texture": "#all"},
+        "up":    {"uv": [0, 7, 16, 9], "texture": "#all"},
+        "down":  {"uv": [0, 7, 16, 9], "texture": "#all"}
+      }
+    }
+  ]
+}

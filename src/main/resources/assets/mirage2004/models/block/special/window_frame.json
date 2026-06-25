@@ -1,0 +1,79 @@
+{
+	"format_version": "1.21.11",
+	"credit": "Made with Blockbench",
+	"parent": "minecraft:block/block",
+	"render_type": "minecraft:cutout",
+	"textures": {
+		"particle": "#all"
+	},
+	"elements": [
+		{
+			"name": "left_rail",
+			"from": [0, 0, 7],
+			"to": [2, 16, 9],
+			"faces": {
+				"north": {"uv": [0, 0, 2, 16], "texture": "#all"},
+				"east": {"uv": [7, 0, 9, 16], "texture": "#all"},
+				"south": {"uv": [0, 0, 2, 16], "texture": "#all"},
+				"west": {"uv": [7, 0, 9, 16], "texture": "#all"},
+				"up": {"uv": [0, 7, 2, 9], "texture": "#all"},
+				"down": {"uv": [0, 7, 2, 9], "texture": "#all"}
+			}
+		},
+		{
+			"name": "right_rail",
+			"from": [14, 0, 7],
+			"to": [16, 16, 9],
+			"faces": {
+				"north": {"uv": [14, 0, 16, 16], "texture": "#all"},
+				"east": {"uv": [7, 0, 9, 16], "texture": "#all"},
+				"south": {"uv": [14, 0, 16, 16], "texture": "#all"},
+				"west": {"uv": [7, 0, 9, 16], "texture": "#all"},
+				"up": {"uv": [14, 7, 16, 9], "texture": "#all"},
+				"down": {"uv": [14, 7, 16, 9], "texture": "#all"}
+			}
+		},
+		{
+			"name": "top_rail",
+			"from": [2, 14, 7],
+			"to": [14, 16, 9],
+			"faces": {
+				"north": {"uv": [2, 0, 14, 2], "texture": "#all"},
+				"east": {"uv": [7, 0, 9, 2], "texture": "#all"},
+				"south": {"uv": [2, 0, 14, 2], "texture": "#all"},
+				"west": {"uv": [7, 0, 9, 2], "texture": "#all"},
+				"up": {"uv": [2, 7, 14, 9], "texture": "#all"},
+				"down": {"uv": [2, 7, 14, 9], "texture": "#all"}
+			}
+		},
+		{
+			"name": "bottom_rail",
+			"from": [2, 0, 7],
+			"to": [14, 2, 9],
+			"faces": {
+				"north": {"uv": [2, 14, 14, 16], "texture": "#all"},
+				"east": {"uv": [7, 14, 9, 16], "texture": "#all"},
+				"south": {"uv": [2, 14, 14, 16], "texture": "#all"},
+				"west": {"uv": [7, 14, 9, 16], "texture": "#all"},
+				"up": {"uv": [2, 7, 14, 9], "texture": "#all"},
+				"down": {"uv": [2, 7, 14, 9], "texture": "#all"}
+			}
+		},
+		{
+			"name": "glass",
+			"from": [0.5, 0.5, 7.5],
+			"to": [15.5, 15.5, 8.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [6.5, 2.5, 7.5]},
+			"color": 8,
+			"faces": {
+				"north": {"uv": [0, 0, 15, 15], "texture": "#missing"},
+				"east": {"uv": [1, 0, 2, 15], "texture": "#missing"},
+				"south": {"uv": [0, 0, 15, 15], "texture": "#missing"},
+				"west": {"uv": [0, 0, 1, 15], "texture": "#missing"},
+				"up": {"uv": [0, 0, 15, 1], "texture": "#missing"},
+				"down": {"uv": [0, 1, 15, 2], "texture": "#missing"}
+			}
+		}
+	],
+	"comment": "Iron window frame: full rectangular frame, no glass. North-authored, centered in the block cell."
+}

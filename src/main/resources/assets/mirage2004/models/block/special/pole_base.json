@@ -1,0 +1,34 @@
+{
+  "comment": "Concrete utility pole base/footing (杆基). The 4x4 shaft rising from a wider 8x4x8 foundation block at the bottom. North-authored; the static kit rotates it by horizontal facing (footing is symmetric). Solid render; texture via #all.",
+  "parent": "minecraft:block/block",
+  "textures": {
+    "particle": "#all"
+  },
+  "elements": [
+    {
+      "name": "footing",
+      "from": [4, 0, 4],
+      "to": [12, 4, 12],
+      "faces": {
+        "north": {"uv": [4, 12, 12, 16], "texture": "#all"},
+        "east":  {"uv": [4, 12, 12, 16], "texture": "#all"},
+        "south": {"uv": [4, 12, 12, 16], "texture": "#all"},
+        "west":  {"uv": [4, 12, 12, 16], "texture": "#all"},
+        "up":    {"uv": [4, 4, 12, 12], "texture": "#all"},
+        "down":  {"uv": [4, 4, 12, 12], "texture": "#all"}
+      }
+    },
+    {
+      "name": "shaft",
+      "from": [6, 4, 6],
+      "to": [10, 16, 10],
+      "faces": {
+        "north": {"uv": [6, 0, 10, 12], "texture": "#all"},
+        "east":  {"uv": [6, 0, 10, 12], "texture": "#all"},
+        "south": {"uv": [6, 0, 10, 12], "texture": "#all"},
+        "west":  {"uv": [6, 0, 10, 12], "texture": "#all"},
+        "up":    {"uv": [6, 6, 10, 10], "texture": "#all"}
+      }
+    }
+  ]
+}

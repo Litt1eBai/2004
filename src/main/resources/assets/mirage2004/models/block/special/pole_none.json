@@ -1,0 +1,22 @@
+{
+  "comment": "Concrete utility pole shaft, isolated (no vertical neighbour). 4x4 square post spanning the full cell height. The four vertical-connect variants (none/bottom/middle/top) share identical geometry so a vertical run reads as one continuous pole. Solid render; texture supplied via #all.",
+  "parent": "minecraft:block/block",
+  "textures": {
+    "particle": "#all"
+  },
+  "elements": [
+    {
+      "name": "shaft",
+      "from": [6, 0, 6],
+      "to": [10, 16, 10],
+      "faces": {
+        "north": {"uv": [6, 0, 10, 16], "texture": "#all"},
+        "east":  {"uv": [6, 0, 10, 16], "texture": "#all"},
+        "south": {"uv": [6, 0, 10, 16], "texture": "#all"},
+        "west":  {"uv": [6, 0, 10, 16], "texture": "#all"},
+        "up":    {"uv": [6, 6, 10, 10], "texture": "#all"},
+        "down":  {"uv": [6, 6, 10, 10], "texture": "#all"}
+      }
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "comment": "Power line / cable (电线). A thin 2x2 cable spanning the full cell along the Z axis (north-south), centered at x/y 7-9. North-authored; the static kit rotates it by horizontal facing so it can run either axis. Cutout render. Shared base for both colors via #all. Texture supplied later.",
+  "parent": "minecraft:block/block",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "particle": "#all"
+  },
+  "elements": [
+    {
+      "name": "cable",
+      "from": [7, 7, 0],
+      "to": [9, 9, 16],
+      "faces": {
+        "north": {"uv": [7, 7, 9, 9], "texture": "#all"},
+        "south": {"uv": [7, 7, 9, 9], "texture": "#all"},
+        "east":  {"uv": [0, 7, 16, 9], "texture": "#all"},
+        "west":  {"uv": [0, 7, 16, 9], "texture": "#all"},
+        "up":    {"uv": [0, 7, 16, 9], "texture": "#all"},
+        "down":  {"uv": [0, 7, 16, 9], "texture": "#all"}
+      }
+    }
+  ]
+}
