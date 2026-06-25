@@ -139,6 +139,321 @@
       "sort": 70
     }
   ],
+  "block_types": {
+    "common": [
+      {
+        "id": "cube",
+        "produce": "geom",
+        "suffix": "",
+        "zh": "",
+        "en": ""
+      },
+      {
+        "id": "slab",
+        "produce": "geom",
+        "suffix": "_slab",
+        "zh": "半砖",
+        "en": " Slab"
+      },
+      {
+        "id": "stairs",
+        "produce": "geom",
+        "suffix": "_stairs",
+        "zh": "楼梯",
+        "en": " Stairs"
+      },
+      {
+        "id": "wall",
+        "produce": "geom",
+        "suffix": "_wall",
+        "zh": "墙",
+        "en": " Wall"
+      },
+      {
+        "id": "pane",
+        "produce": "geom",
+        "suffix": "_pane",
+        "zh": "窗格",
+        "en": " Pane"
+      },
+      {
+        "id": "grille",
+        "produce": "geom",
+        "suffix": "",
+        "zh": "",
+        "en": ""
+      },
+      {
+        "id": "slope",
+        "produce": "geom",
+        "suffix": "_slope",
+        "zh": "斜坡",
+        "en": " Slope"
+      },
+      {
+        "id": "triangle_wall",
+        "produce": "geom",
+        "suffix": "_triangle_wall",
+        "zh": "三角墙",
+        "en": " Triangle Wall"
+      }
+    ],
+    "special": [
+      {
+        "id": "window_frame",
+        "produce": "special",
+        "kit": "static",
+        "zh": "窗框",
+        "en": "Window Frame"
+      },
+      {
+        "id": "window_frame_cross",
+        "produce": "special",
+        "kit": "static",
+        "zh": "十字窗框",
+        "en": "Cross Window Frame"
+      },
+      {
+        "id": "window_frame_corner",
+        "produce": "special",
+        "kit": "static",
+        "zh": "转角窗框",
+        "en": "Corner Window Frame"
+      },
+      {
+        "id": "window_panel",
+        "produce": "special",
+        "kit": "static",
+        "zh": "窗扇",
+        "en": "Window Panel"
+      },
+      {
+        "id": "grille_panel",
+        "produce": "special",
+        "kit": "static",
+        "zh": "防盗网",
+        "en": "Security Grille Panel"
+      },
+      {
+        "id": "grille_cap",
+        "produce": "special",
+        "kit": "static",
+        "zh": "防盗网帽",
+        "en": "Security Grille Cap"
+      },
+      {
+        "id": "grille_arch",
+        "produce": "special",
+        "kit": "static",
+        "zh": "拱形防盗网",
+        "en": "Security Grille Arch"
+      },
+      {
+        "id": "grille_cage",
+        "produce": "special",
+        "kit": "static",
+        "zh": "笼式防盗网",
+        "en": "Security Grille Cage"
+      },
+      {
+        "id": "grille_box",
+        "produce": "special",
+        "kit": "static",
+        "zh": "环框防盗笼",
+        "en": "Security Grille Box"
+      },
+      {
+        "id": "pole",
+        "produce": "special",
+        "kit": "pole",
+        "zh": "杆",
+        "en": "Pole"
+      },
+      {
+        "id": "pole_arm",
+        "produce": "special",
+        "kit": "static",
+        "zh": "横担",
+        "en": "Pole Arm"
+      },
+      {
+        "id": "pole_base",
+        "produce": "special",
+        "kit": "static",
+        "zh": "杆基",
+        "en": "Pole Base"
+      },
+      {
+        "id": "wire",
+        "produce": "special",
+        "kit": "static",
+        "zh": "电线",
+        "en": "Wire"
+      }
+    ]
+  },
+  "apply": {
+    "small_tile": {
+      "common": [
+        "cube",
+        "slab",
+        "stairs",
+        "wall",
+        "slope",
+        "triangle_wall"
+      ]
+    },
+    "horizontal_tile": {
+      "common": [
+        "cube",
+        "slab",
+        "stairs",
+        "wall",
+        "slope",
+        "triangle_wall"
+      ]
+    },
+    "vertical_tile": {
+      "common": [
+        "cube",
+        "slab",
+        "stairs",
+        "wall",
+        "slope",
+        "triangle_wall"
+      ]
+    },
+    "painted_cement": {
+      "common": [
+        "cube",
+        "slab",
+        "stairs",
+        "wall",
+        "slope",
+        "triangle_wall"
+      ]
+    },
+    "mosaic": {
+      "common": [
+        "cube",
+        "slab",
+        "stairs",
+        "wall",
+        "slope"
+      ]
+    },
+    "terrazzo": {
+      "common": [
+        "cube",
+        "slab",
+        "stairs",
+        "wall"
+      ]
+    },
+    "curtain_glass": {
+      "common": [
+        "cube",
+        "pane"
+      ]
+    },
+    "window_glass_panel": {
+      "common": [
+        "cube",
+        "pane"
+      ],
+      "special": [
+        "window_panel"
+      ]
+    },
+    "security_grille": {
+      "common": [
+        "grille"
+      ],
+      "special": [
+        "grille_panel",
+        "grille_cap",
+        "grille_arch",
+        "grille_cage",
+        "grille_box"
+      ]
+    },
+    "steel_window_frame": {
+      "special": [
+        "window_frame",
+        "window_frame_cross",
+        "window_frame_corner"
+      ]
+    },
+    "concrete_utility_pole": {
+      "special": [
+        {
+          "type": "pole",
+          "collision": "(6,0,6,10,16,10)"
+        },
+        "pole_arm",
+        "pole_base"
+      ]
+    },
+    "power_line": {
+      "special": [
+        {
+          "type": "wire",
+          "collision": "(6,6,0,10,10,16)"
+        }
+      ]
+    },
+    "framed_window_1": {
+      "pieces": [
+        {
+          "type": "pane",
+          "collision": "(0,0,7,16,16,9)"
+        }
+      ]
+    },
+    "framed_window_2": {
+      "pieces": [
+        {
+          "type": "pane",
+          "collision": "(0,0,7,16,16,9)"
+        }
+      ]
+    },
+    "framed_window_3": {
+      "pieces": [
+        {
+          "type": "pane",
+          "collision": "(0,0,7,16,16,9)"
+        }
+      ]
+    },
+    "framed_window_slope": {
+      "pieces": [
+        {
+          "type": "framed_window_slope",
+          "kit": "framed_window_slope",
+          "collision": "full"
+        }
+      ]
+    },
+    "prefab_window_balcony": {
+      "pieces": [
+        {
+          "type": "balcony_left",
+          "kit": "prefab_window",
+          "zh": "左",
+          "en": "Left",
+          "collision": "(1,0,1,16,16,3)"
+        },
+        {
+          "type": "balcony_right",
+          "kit": "prefab_window",
+          "zh": "右",
+          "en": "Right",
+          "collision": "(0,0,1,15,16,3)"
+        }
+      ]
+    }
+  },
   "families": [
     {
       "id": "small_tile",
@@ -149,15 +464,6 @@
       "renderType": "solid",
       "baseTexture": "small_tile",
       "slopeFace": "small_tile_slope",
-      "commonShapes": [
-        "cube",
-        "slab",
-        "stairs",
-        "wall",
-        "slope",
-        "triangle_wall"
-      ],
-      "specialShapes": [],
       "colors": [
         "white",
         "dirty_white",
@@ -170,12 +476,7 @@
         "mosaic_blue",
         "emerald_dot"
       ],
-      "blockProps": {
-        "sound": "stone",
-        "hardness": 1.5,
-        "resistance": 6.0,
-        "mapColor": "STONE"
-      }
+      "material": "ceramic_tile"
     },
     {
       "id": "vertical_tile",
@@ -185,15 +486,6 @@
       "category": "brick_and_tile",
       "renderType": "solid",
       "baseTexture": "vertical_tile",
-      "commonShapes": [
-        "cube",
-        "slab",
-        "stairs",
-        "wall",
-        "slope",
-        "triangle_wall"
-      ],
-      "specialShapes": [],
       "colors": [
         "white",
         "dirty_white",
@@ -206,12 +498,7 @@
         "mosaic_blue",
         "emerald_dot"
       ],
-      "blockProps": {
-        "sound": "stone",
-        "hardness": 1.5,
-        "resistance": 6.0,
-        "mapColor": "STONE"
-      }
+      "material": "ceramic_tile"
     },
     {
       "id": "horizontal_tile",
@@ -221,15 +508,6 @@
       "category": "brick_and_tile",
       "renderType": "solid",
       "baseTexture": "horizontal_tile",
-      "commonShapes": [
-        "cube",
-        "slab",
-        "stairs",
-        "wall",
-        "slope",
-        "triangle_wall"
-      ],
-      "specialShapes": [],
       "colors": [
         "white",
         "dirty_white",
@@ -242,12 +520,7 @@
         "mosaic_blue",
         "emerald_dot"
       ],
-      "blockProps": {
-        "sound": "stone",
-        "hardness": 1.5,
-        "resistance": 6.0,
-        "mapColor": "STONE"
-      }
+      "material": "ceramic_tile"
     },
     {
       "id": "painted_cement",
@@ -257,27 +530,13 @@
       "category": "concrete_and_plaster",
       "renderType": "solid",
       "baseTexture": "painted_cement",
-      "commonShapes": [
-        "cube",
-        "slab",
-        "stairs",
-        "wall",
-        "slope",
-        "triangle_wall"
-      ],
-      "specialShapes": [],
       "randomVariants": 4,
       "colors": [
         "plain",
         "cream",
         "orange"
       ],
-      "blockProps": {
-        "sound": "stone",
-        "hardness": 1.5,
-        "resistance": 6.0,
-        "mapColor": "STONE"
-      }
+      "material": "ceramic_tile"
     },
     {
       "id": "terrazzo",
@@ -287,23 +546,11 @@
       "category": "stone_and_aggregate",
       "renderType": "solid",
       "baseTexture": "terrazzo",
-      "commonShapes": [
-        "cube",
-        "slab",
-        "stairs",
-        "wall"
-      ],
-      "specialShapes": [],
       "colors": [
         "brown",
         "gray"
       ],
-      "blockProps": {
-        "sound": "stone",
-        "hardness": 1.8,
-        "resistance": 6.0,
-        "mapColor": "STONE"
-      }
+      "material": "terrazzo"
     },
     {
       "id": "mosaic",
@@ -314,14 +561,6 @@
       "renderType": "solid",
       "baseTexture": "mosaic",
       "randomVariants": 4,
-      "commonShapes": [
-        "cube",
-        "slab",
-        "stairs",
-        "wall",
-        "slope"
-      ],
-      "specialShapes": [],
       "colors": [
         "dusty_mauve_brown",
         "blue",
@@ -330,12 +569,7 @@
         "blue_reverse",
         "emerald_dot_reverse"
       ],
-      "blockProps": {
-        "sound": "stone",
-        "hardness": 1.5,
-        "resistance": 6.0,
-        "mapColor": "STONE"
-      }
+      "material": "ceramic_tile"
     },
     {
       "id": "curtain_glass",
@@ -345,22 +579,12 @@
       "category": "windows",
       "renderType": "translucent",
       "baseTexture": "curtain_glass",
-      "commonShapes": [
-        "cube",
-        "pane"
-      ],
-      "specialShapes": [],
       "colors": [
         "blue",
         "clear",
         "green"
       ],
-      "blockProps": {
-        "sound": "glass",
-        "hardness": 0.3,
-        "resistance": 0.3,
-        "mapColor": "COLOR_LIGHT_BLUE"
-      }
+      "material": "glass"
     },
     {
       "id": "steel_window_frame",
@@ -370,21 +594,10 @@
       "category": "windows",
       "renderType": "cutout",
       "baseTexture": "steel_window_frame",
-      "commonShapes": [],
-      "specialShapes": [
-        "window_frame",
-        "window_frame_cross",
-        "window_frame_corner"
-      ],
       "colors": [
         "white"
       ],
-      "blockProps": {
-        "sound": "stone",
-        "hardness": 2.0,
-        "resistance": 6.0,
-        "mapColor": "STONE"
-      }
+      "material": "steel_frame"
     },
     {
       "id": "window_glass_panel",
@@ -394,24 +607,12 @@
       "category": "windows",
       "renderType": "translucent",
       "baseTexture": "window_glass_panel",
-      "commonShapes": [
-        "cube",
-        "pane"
-      ],
-      "specialShapes": [
-        "window_panel"
-      ],
       "colors": [
         "blue",
         "clear",
         "green"
       ],
-      "blockProps": {
-        "sound": "glass",
-        "hardness": 0.3,
-        "resistance": 0.3,
-        "mapColor": "COLOR_LIGHT_BLUE"
-      }
+      "material": "glass"
     },
     {
       "id": "security_grille",
@@ -421,25 +622,10 @@
       "category": "windows",
       "renderType": "cutout",
       "baseTexture": "security_grille",
-      "commonShapes": [
-        "grille"
-      ],
-      "specialShapes": [
-        "grille_panel",
-        "grille_cap",
-        "grille_arch",
-        "grille_cage",
-        "grille_box"
-      ],
       "colors": [
         "gray"
       ],
-      "blockProps": {
-        "sound": "stone",
-        "hardness": 2.5,
-        "resistance": 6.0,
-        "mapColor": "STONE"
-      }
+      "material": "steel_grille"
     },
     {
       "id": "concrete_utility_pole",
@@ -449,36 +635,10 @@
       "category": "infrastructure",
       "renderType": "solid",
       "baseTexture": "concrete_utility_pole",
-      "commonShapes": [
-        "cube",
-        "slab",
-        "stairs",
-        "wall"
-      ],
-      "specialShapes": [
-        {
-          "shape": "pole",
-          "kit": "pole",
-          "collision": "(6,0,6,10,16,10)"
-        },
-        {
-          "shape": "pole_arm",
-          "kit": "static"
-        },
-        {
-          "shape": "pole_base",
-          "kit": "static"
-        }
-      ],
       "colors": [
         "gray"
       ],
-      "blockProps": {
-        "sound": "stone",
-        "hardness": 2.5,
-        "resistance": 8.0,
-        "mapColor": "STONE"
-      }
+      "material": "concrete"
     },
     {
       "id": "power_line",
@@ -488,24 +648,11 @@
       "category": "infrastructure",
       "renderType": "cutout",
       "baseTexture": "power_line",
-      "commonShapes": [],
-      "specialShapes": [
-        {
-          "shape": "wire",
-          "kit": "static",
-          "collision": "(6,6,0,10,10,16)"
-        }
-      ],
       "colors": [
         "gray",
         "black"
       ],
-      "blockProps": {
-        "sound": "stone",
-        "hardness": 0.4,
-        "resistance": 0.4,
-        "mapColor": "STONE"
-      }
+      "material": "cable"
     },
     {
       "id": "framed_window_1",
@@ -517,8 +664,6 @@
       "baseTexture": "steel_window_frame",
       "frameTexture": "steel_window_frame",
       "glassTexture": "window_glass_panel",
-      "commonShapes": [],
-      "specialShapes": [],
       "colors": [],
       "colorPairs": [
         [
@@ -530,18 +675,7 @@
           "clear"
         ]
       ],
-      "pieces": [
-        {
-          "modelPrefix": "pane",
-          "collision": "(0,0,7,16,16,9)"
-        }
-      ],
-      "blockProps": {
-        "sound": "metal",
-        "hardness": 2.0,
-        "resistance": 6.0,
-        "mapColor": "STONE"
-      }
+      "material": "window_metal"
     },
     {
       "id": "framed_window_2",
@@ -553,8 +687,6 @@
       "baseTexture": "steel_window_frame",
       "frameTexture": "steel_window_frame",
       "glassTexture": "window_glass_panel",
-      "commonShapes": [],
-      "specialShapes": [],
       "colors": [],
       "colorPairs": [
         [
@@ -566,18 +698,7 @@
           "clear"
         ]
       ],
-      "pieces": [
-        {
-          "modelPrefix": "pane",
-          "collision": "(0,0,7,16,16,9)"
-        }
-      ],
-      "blockProps": {
-        "sound": "metal",
-        "hardness": 2.0,
-        "resistance": 6.0,
-        "mapColor": "STONE"
-      }
+      "material": "window_metal"
     },
     {
       "id": "framed_window_3",
@@ -589,8 +710,6 @@
       "baseTexture": "steel_window_frame",
       "frameTexture": "steel_window_frame",
       "glassTexture": "window_glass_panel",
-      "commonShapes": [],
-      "specialShapes": [],
       "colors": [],
       "colorPairs": [
         [
@@ -602,18 +721,7 @@
           "clear"
         ]
       ],
-      "pieces": [
-        {
-          "modelPrefix": "pane",
-          "collision": "(0,0,7,16,16,9)"
-        }
-      ],
-      "blockProps": {
-        "sound": "metal",
-        "hardness": 2.0,
-        "resistance": 6.0,
-        "mapColor": "STONE"
-      }
+      "material": "window_metal"
     },
     {
       "id": "framed_window_slope",
@@ -625,8 +733,6 @@
       "baseTexture": "steel_window_frame",
       "frameTexture": "steel_window_frame",
       "glassTexture": "window_glass_panel",
-      "commonShapes": [],
-      "specialShapes": [],
       "colors": [],
       "colorPairs": [
         [
@@ -634,20 +740,7 @@
           "clear"
         ]
       ],
-      "pieces": [
-        {
-          "modelPrefix": "framed_window_slope",
-          "shape": "slope",
-          "kit": "framed_window_slope",
-          "collision": "full"
-        }
-      ],
-      "blockProps": {
-        "sound": "metal",
-        "hardness": 2.0,
-        "resistance": 6.0,
-        "mapColor": "STONE"
-      }
+      "material": "window_metal"
     },
     {
       "id": "prefab_window_balcony",
@@ -659,8 +752,6 @@
       "baseTexture": "steel_window_frame",
       "frameTexture": "steel_window_frame",
       "glassTexture": "window_glass_panel",
-      "commonShapes": [],
-      "specialShapes": [],
       "colors": [],
       "colorPairs": [
         [
@@ -676,32 +767,10 @@
           "green"
         ]
       ],
-      "pieces": [
-        {
-          "shape": "balcony_left",
-          "kit": "prefab_window",
-          "modelPrefix": "balcony_left",
-          "zh": "左",
-          "en": "Left",
-          "collision": "(1,0,1,16,16,3)"
-        },
-        {
-          "shape": "balcony_right",
-          "kit": "prefab_window",
-          "modelPrefix": "balcony_right",
-          "zh": "右",
-          "en": "Right",
-          "collision": "(0,0,1,15,16,3)"
-        }
-      ],
-      "blockProps": {
-        "sound": "metal",
-        "hardness": 2.0,
-        "resistance": 6.0,
-        "mapColor": "STONE"
-      }
+      "material": "window_metal"
     }
   ],
+  "singles": [],
   "collections": [
     {
       "id": "qianxi_core",
@@ -717,7 +786,7 @@
       ]
     },
     {
-      "id": "window_and_infra_experimental",
+      "id": "window_and_infra",
       "enabled": true,
       "families": [
         "steel_window_frame",
@@ -6691,98 +6760,6 @@
       "modelPrefix": "grille_box",
       "collision": "full",
       "connectsBy": ""
-    },
-    {
-      "id": "concrete_utility_pole_gray",
-      "baseId": "concrete_utility_pole_gray",
-      "familyId": "concrete_utility_pole",
-      "preset": "utility_pole",
-      "colorId": "gray",
-      "shape": "cube",
-      "zhName": "灰水泥电线杆",
-      "enName": "Gray Concrete Utility Pole",
-      "category": "infrastructure",
-      "renderType": "solid",
-      "texturePath": "concrete_utility_pole_gray",
-      "sound": "stone",
-      "hardness": 2.5,
-      "resistance": 8.0,
-      "mapColor": "STONE",
-      "kit": "",
-      "modelPrefix": "",
-      "collision": "full",
-      "connectsBy": "",
-      "randomVariants": 1,
-      "slopeFace": "concrete_utility_pole_gray"
-    },
-    {
-      "id": "concrete_utility_pole_gray_slab",
-      "baseId": "concrete_utility_pole_gray",
-      "familyId": "concrete_utility_pole",
-      "preset": "utility_pole",
-      "colorId": "gray",
-      "shape": "slab",
-      "zhName": "灰水泥电线杆半砖",
-      "enName": "Gray Concrete Utility Pole Slab",
-      "category": "infrastructure",
-      "renderType": "solid",
-      "texturePath": "concrete_utility_pole_gray",
-      "sound": "stone",
-      "hardness": 2.5,
-      "resistance": 8.0,
-      "mapColor": "STONE",
-      "kit": "",
-      "modelPrefix": "",
-      "collision": "full",
-      "connectsBy": "",
-      "randomVariants": 1,
-      "slopeFace": "concrete_utility_pole_gray"
-    },
-    {
-      "id": "concrete_utility_pole_gray_stairs",
-      "baseId": "concrete_utility_pole_gray",
-      "familyId": "concrete_utility_pole",
-      "preset": "utility_pole",
-      "colorId": "gray",
-      "shape": "stairs",
-      "zhName": "灰水泥电线杆楼梯",
-      "enName": "Gray Concrete Utility Pole Stairs",
-      "category": "infrastructure",
-      "renderType": "solid",
-      "texturePath": "concrete_utility_pole_gray",
-      "sound": "stone",
-      "hardness": 2.5,
-      "resistance": 8.0,
-      "mapColor": "STONE",
-      "kit": "",
-      "modelPrefix": "",
-      "collision": "full",
-      "connectsBy": "",
-      "randomVariants": 1,
-      "slopeFace": "concrete_utility_pole_gray"
-    },
-    {
-      "id": "concrete_utility_pole_gray_wall",
-      "baseId": "concrete_utility_pole_gray",
-      "familyId": "concrete_utility_pole",
-      "preset": "utility_pole",
-      "colorId": "gray",
-      "shape": "wall",
-      "zhName": "灰水泥电线杆墙",
-      "enName": "Gray Concrete Utility Pole Wall",
-      "category": "infrastructure",
-      "renderType": "solid",
-      "texturePath": "concrete_utility_pole_gray",
-      "sound": "stone",
-      "hardness": 2.5,
-      "resistance": 8.0,
-      "mapColor": "STONE",
-      "kit": "",
-      "modelPrefix": "",
-      "collision": "full",
-      "connectsBy": "",
-      "randomVariants": 1,
-      "slopeFace": "concrete_utility_pole_gray"
     },
     {
       "id": "concrete_utility_pole_gray_pole",

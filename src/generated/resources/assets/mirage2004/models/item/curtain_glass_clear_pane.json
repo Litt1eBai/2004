@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "mirage2004:block/curtain_glass_clear"
-  }
-}

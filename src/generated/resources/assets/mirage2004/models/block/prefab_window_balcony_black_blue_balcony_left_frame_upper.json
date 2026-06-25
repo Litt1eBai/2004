@@ -1,8 +1,0 @@
-{
-  "parent": "mirage2004:block/special/balcony_left_frame_upper",
-  "render_type": "minecraft:cutout",
-  "textures": {
-    "all": "mirage2004:block/steel_window_frame_black",
-    "particle": "mirage2004:block/steel_window_frame_black"
-  }
-}

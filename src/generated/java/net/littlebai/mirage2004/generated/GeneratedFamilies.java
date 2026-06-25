@@ -136,7 +136,7 @@ public final class GeneratedFamilies {
                     "infrastructure",
                     "solid",
                     "concrete_utility_pole",
-                    List.of("cube", "slab", "stairs", "wall"),
+                    List.of(),
                     List.of("pole", "pole_arm", "pole_base"),
                     List.of("gray"),
                     new BlockPropertySpec("stone", 2.5, 8.0, "STONE")),

@@ -1,8 +1,0 @@
-{
-  "parent": "mirage2004:block/special/grille_cap_arm_bottom",
-  "textures": {
-    "all": "mirage2004:block/security_grille_gray",
-    "top": "mirage2004:block/security_grille_gray_top"
-  },
-  "render_type": "minecraft:cutout"
-}
