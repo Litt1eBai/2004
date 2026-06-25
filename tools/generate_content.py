@@ -3,11 +3,15 @@ from __future__ import annotations
 
 import json
 import re
+import sys
 from pathlib import Path
 import shutil
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import xlsx_io  # dependency-free .xlsx reader for the tabular content sources (step 5)
+
 try:
-    import yaml  # PyYAML — family docs + materials are authored as YAML
+    import yaml  # PyYAML — family docs are authored as YAML
 except ModuleNotFoundError as exc:  # fail with an actionable message, not a bare traceback
     raise SystemExit(
         "generate_content.py requires PyYAML, which is not installed for this Python "
@@ -234,31 +238,133 @@ def reset_generated_outputs():
             path.unlink()
 
 
-def load_content():
-    colors = read_json(CONTENT_DIR / "palettes" / "colors.json")
-    color_map = {entry["id"]: entry for entry in colors}
+def _apply_entry_from_row(d: dict):
+    """One apply 'special' row -> a bare type string (no overrides) or a {type, ...overrides}
+    map, matching how special shapes were authored. Bare-when-plain keeps the round-trip tight."""
+    overrides = [(k, d[k]) for k in ("kit", "modelPrefix", "collision", "connectsBy", "zh", "en")
+                 if d.get(k, "") != ""]
+    if not overrides:
+        return d["type"]
+    entry = {"type": d["type"]}
+    for key, value in overrides:
+        entry[key] = value
+    return entry
 
-    materials = read_yaml(CONTENT_DIR / "materials.yaml")
+
+# Coercion helpers for xlsx cells. The reader returns native bool/int/float for real
+# typed cells, but a maintainer editing in Excel can turn a cell into TEXT ("FALSE",
+# "10.0"). bool("FALSE") is True, int("10.0") raises — so coerce explicitly and fail
+# loud on anything unrecognized rather than silently misreading.
+def _xlsx_bool(value, ctx: str) -> bool:
+    if isinstance(value, bool):
+        return value
+    s = str(value).strip().lower()
+    if s in ("true", "1", "yes"):
+        return True
+    if s in ("false", "0", "no", ""):
+        return False
+    raise SystemExit(f"{ctx}: expected a boolean (TRUE/FALSE), got {value!r}")
+
+
+def _xlsx_int(value, ctx: str) -> int:
+    try:
+        return int(float(value))
+    except (ValueError, TypeError):
+        raise SystemExit(f"{ctx}: expected a number, got {value!r}")
+
+
+def _xlsx_float(value, ctx: str) -> float:
+    try:
+        return float(value)
+    except (ValueError, TypeError):
+        raise SystemExit(f"{ctx}: expected a number, got {value!r}")
+
+
+def load_tables_from_xlsx(path: Path):
+    """Read the tabular content sources from mirage.xlsx (step 5) and rebuild the in-memory
+    structures the generator used to load from colors.json / materials.yaml / block_types.yaml /
+    apply.yaml / blocks.yaml / collections/*.json. Family docs stay as YAML (loaded separately)."""
+    sheets = xlsx_io.read_xlsx(path)
+
+    colors = [{"id": d["id"], "zh": d["zh"], "en": d["en"],
+               "sort": _xlsx_int(d["sort"], f"color '{d['id']}' sort")}
+              for d in xlsx_io.sheet_to_dicts(sheets["colors"])]
+
+    materials = []
+    for d in xlsx_io.sheet_to_dicts(sheets["materials"]):
+        mat = {"id": d["id"], "sound": d["sound"],
+               "hardness": _xlsx_float(d["hardness"], f"material '{d['id']}' hardness"),
+               "resistance": _xlsx_float(d["resistance"], f"material '{d['id']}' resistance"),
+               "mapColor": d["mapColor"]}
+        if d.get("tool", "") != "":
+            mat["tool"] = d["tool"]
+        if d.get("tag_transformers", "") != "":
+            try:
+                mat["tag_transformers"] = json.loads(d["tag_transformers"])
+            except json.JSONDecodeError as exc:
+                raise SystemExit(f"material '{d['id']}' tag_transformers is not valid JSON: {exc}")
+        materials.append(mat)
+
+    common, special = [], []
+    for d in xlsx_io.sheet_to_dicts(sheets["block_types"]):
+        # collision/base_model are reserved columns not yet consumed; a non-empty value
+        # would silently do nothing (and can't be grep'd in a binary), so fail loud.
+        if d.get("collision", "") != "" or d.get("base_model", "") != "":
+            raise SystemExit(f"block_type '{d['id']}': collision/base_model are reserved and "
+                             "not yet consumed by the generator; leave them empty for now")
+        if d["kind"] == "common":
+            common.append({"id": d["id"], "produce": d["produce"], "suffix": d["suffix"],
+                           "zh": d["zh"], "en": d["en"]})
+        else:
+            special.append({"id": d["id"], "produce": d["produce"], "kit": d["kit"],
+                            "zh": d["zh"], "en": d["en"]})
+    block_types = {"common": common, "special": special}
+
+    apply_map = {}
+    for d in xlsx_io.sheet_to_dicts(sheets["apply"]):
+        spec = apply_map.setdefault(d["family"], {})
+        role = d["role"]
+        if role == "common":
+            spec.setdefault("common", []).append(d["type"])
+        elif role == "special":
+            spec.setdefault("special", []).append(_apply_entry_from_row(d))
+        elif role == "piece":
+            piece = {"type": d["type"]}
+            # key order mirrors how pieces were authored (…, zh, en, collision) so the
+            # manifest's apply dump round-trips byte-for-byte through the xlsx.
+            for key in ("kit", "modelPrefix", "zh", "en", "collision"):
+                if d.get(key, "") != "":
+                    piece[key] = d[key]
+            spec.setdefault("pieces", []).append(piece)
+        else:
+            raise SystemExit(f"apply sheet row for '{d['family']}' has unknown role '{role}'")
+
+    singles = list(xlsx_io.sheet_to_dicts(sheets["blocks"]))
+
+    collections = [{"id": d["id"],
+                    "enabled": _xlsx_bool(d["enabled"], f"collection '{d['id']}' enabled"),
+                    "families": [s.strip() for s in str(d["families"]).split(",") if s.strip()]}
+                   for d in xlsx_io.sheet_to_dicts(sheets["collections"])]
+
+    return colors, materials, block_types, apply_map, singles, collections
+
+
+def load_content():
+    colors, materials, block_types, apply_map, singles, collections = load_tables_from_xlsx(
+        CONTENT_DIR / "mirage.xlsx")
+    color_map = {entry["id"]: entry for entry in colors}
     material_map = {entry["id"]: entry for entry in materials}
 
     families = []
     for path in sorted((CONTENT_DIR / "families").glob("*.yaml")):
         families.append(read_yaml(path))
 
-    collections = []
-    for path in sorted((CONTENT_DIR / "collections").glob("*.json")):
-        collections.append(read_json(path))
-
     base_en = read_json(CONTENT_DIR / "base_lang" / "en_us.json")
     base_zh = read_json(CONTENT_DIR / "base_lang" / "zh_cn.json")
 
-    # Step 4: block-type catalog + per-family assignment + singles. Families declare
-    # colour + material only; their shapes live in apply.yaml against the block_types.yaml
-    # catalog. Resolve apply back into each family's commonShapes/specialShapes/pieces so
-    # the rest of the generator (expansion, Java specs, tags, loot) is unchanged.
-    block_types = read_yaml(CONTENT_DIR / "block_types.yaml")
-    apply_map = read_yaml(CONTENT_DIR / "apply.yaml") or {}
-    singles = read_yaml(CONTENT_DIR / "blocks.yaml") or []
+    # Families declare colour + material only; their shapes live in the apply table against the
+    # block_types catalog. Resolve apply back into each family's commonShapes/specialShapes/pieces
+    # so the rest of the generator (expansion, Java specs, tags, loot) is unchanged.
     block_type_map = validate_block_types(block_types)
     for family in families:
         resolve_apply_into_family(family, apply_map, block_type_map)
@@ -267,37 +373,37 @@ def load_content():
 
 
 def validate_block_types(block_types: dict) -> dict:
-    """Cross-validate content/block_types.yaml against the generator's shape/name tables so
-    the declared catalog cannot silently drift, and return {id: entry} for apply resolution.
-    common entries must match SHAPE_SUFFIXES/ZH/EN exactly; special entries must use a known
-    kit and match the SPECIAL_SHAPE name tables."""
+    """Cross-validate the block_types sheet (mirage.xlsx) against the generator's shape/name
+    tables so the declared catalog cannot silently drift, and return {id: entry} for apply
+    resolution. common entries must match SHAPE_SUFFIXES/ZH/EN exactly; special entries must
+    use a known kit and match the SPECIAL_SHAPE name tables."""
     common = {bt["id"]: bt for bt in block_types.get("common", [])}
     special = {bt["id"]: bt for bt in block_types.get("special", [])}
     for shape in SUPPORTED_GENERATED_SHAPES:
         if shape not in common:
-            raise SystemExit(f"block_types.yaml missing common shape '{shape}'")
+            raise SystemExit(f"block_types sheet missing common shape '{shape}'")
     for sid, bt in common.items():
         if sid not in SUPPORTED_GENERATED_SHAPES:
-            raise SystemExit(f"block_types.yaml common shape '{sid}' is not a supported generated shape")
+            raise SystemExit(f"block_types sheet common shape '{sid}' is not a supported generated shape")
         if (bt.get("suffix", "") != SHAPE_SUFFIXES[sid]
                 or bt.get("zh", "") != SHAPE_ZH_NAMES[sid]
                 or bt.get("en", "") != SHAPE_EN_NAMES[sid]):
-            raise SystemExit(f"block_types.yaml common shape '{sid}' disagrees with the generator tables")
+            raise SystemExit(f"block_types sheet common shape '{sid}' disagrees with the generator tables")
     for sid, bt in special.items():
         if bt.get("kit") not in SUPPORTED_KITS:
-            raise SystemExit(f"block_types.yaml special '{sid}' uses unsupported kit '{bt.get('kit')}'")
+            raise SystemExit(f"block_types sheet special '{sid}' uses unsupported kit '{bt.get('kit')}'")
         if SPECIAL_SHAPE_ZH.get(sid) != bt.get("zh") or SPECIAL_SHAPE_EN.get(sid) != bt.get("en"):
-            raise SystemExit(f"block_types.yaml special '{sid}' name disagrees with the generator tables")
+            raise SystemExit(f"block_types sheet special '{sid}' name disagrees with the generator tables")
     return {**common, **special}
 
 
 def resolve_apply_into_family(family: dict, apply_map: dict, block_type_map: dict):
-    """Inject a family's commonShapes/specialShapes/pieces from its content/apply.yaml entry
+    """Inject a family's commonShapes/specialShapes/pieces from its apply-sheet entry
     (defaults sourced from the block_types catalog, overridable per cell). Reproduces the
     exact lists families used to declare inline, so downstream expansion is byte-identical."""
     fid = family["id"]
     if fid not in apply_map:
-        raise SystemExit(f"Family '{fid}' has no entry in content/apply.yaml")
+        raise SystemExit(f"Family '{fid}' has no entry in the apply sheet (mirage.xlsx)")
     spec = apply_map[fid] or {}
 
     family["commonShapes"] = list(spec.get("common", []))

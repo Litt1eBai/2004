@@ -155,10 +155,10 @@ def report_block(block: dict, fam_cols: dict[str, list[str]]):
     print(f"  enabled by collection: {', '.join(cols) if cols else '(none — orphaned?)'}")
 
     print("  SOURCE (edit here):")
-    print(f"    family spec : {mark(CONTENT / 'families' / (fam + '.yaml'))}")
-    for col in cols:
-        cid = col.split(' ')[0]
-        print(f"    collection  : {mark(CONTENT / 'collections' / (cid + '.json'))}")
+    print(f"    family spec : {mark(CONTENT / 'families' / (fam + '.yaml'))}  (colour + material)")
+    col_names = ', '.join(c.split(' ')[0] for c in cols) if cols else '—'
+    print(f"    tables      : {mark(CONTENT / 'mirage.xlsx')}  (apply sheet: shapes for '{fam}'; "
+          f"collections sheet enables: {col_names})")
 
     frozen = is_frozen(block)
     if frozen:

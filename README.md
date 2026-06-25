@@ -6,17 +6,12 @@ Content flow
 
 Author editable inputs live under `content/`:
 
-- `content/palettes/*.json`: color palette definitions
-- `content/materials.yaml`: shared material layer (physics + `tool`/`tag_transformers`), referenced by families via `material:`
 - `content/families/*.yaml`: material family definitions — colour axes + `material` only (YAML; the generator needs PyYAML)
-- `content/block_types.yaml`: the shape catalog (common cube/slab/stairs/wall/… + special kit-driven shapes)
-- `content/apply.yaml`: assigns block_types to families (+ per-cell collision/kit overrides; framed windows use `pieces`)
-- `content/blocks.yaml`: one-off "single" blocks that don't fit a family's colour × block_type grid
-- `content/collections/*.json`: enabled family sets
+- `content/mirage.xlsx`: the tabular sources, one sheet each — `colors`, `materials` (physics + `tool`/`tag_transformers`), `block_types` (the shape catalog: common cube/slab/stairs/wall/… + special kit-driven shapes), `apply` (assigns block_types to families, with per-cell collision/kit overrides; framed windows use `piece` rows), `blocks` (one-off "single" blocks), `collections` (enabled family sets). Read directly via the Python stdlib (no openpyxl); edit in any spreadsheet app.
 - `content/base_lang/*.json`: hand-written base localization keys
 
 These inputs describe mod-internal content structure only. They do not describe how textures are generated.
-Each family also carries a code-owned `preset` that tells the runtime what kind of system it belongs to, such as solid materials, glass systems, window-frame systems, or infrastructure systems. A block is a family's `material` × colour-axes cartesian × the block_types assigned to it in `apply.yaml`, or a one-off row in `blocks.yaml`.
+Each family also carries a code-owned `preset` that tells the runtime what kind of system it belongs to, such as solid materials, glass systems, window-frame systems, or infrastructure systems. A block is a family's `material` × colour-axes cartesian × the block_types assigned to it in the `apply` sheet, or a one-off row in the `blocks` sheet.
 
 Generated outputs live under `src/generated/`:
 
