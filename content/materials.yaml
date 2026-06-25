@@ -1,0 +1,67 @@
+# Shared material layer (KMaterial-style). A family references one material by id;
+# the material owns physics + tag behaviour. Lets many families share one substance
+# (DRY) and keeps per-block tags driven by the material, not the shape.
+#
+# Fields:
+#   sound/hardness/resistance/mapColor  - vanilla block physics (verbatim what families used to inline as blockProps)
+#   tool                                - mining tool; emits the block into mineable/<tool>. Omit => not in any mineable tag.
+#   tag_transformers                    - optional {generic_tag: specific_tag} rewrites applied to this material's blocks
+#                                         (e.g. wood: {slabs: wooden_slabs}). None of the current stone/glass/metal needs it.
+#
+# NOTE (latent): window_metal currently has NO tool, preserving the old `sound=="stone"`
+# mineable rule that excluded metal windows. Arguably metal should be pickaxe — change
+# `tool: pickaxe` here when you want that (it will add them to mineable/pickaxe).
+
+- id: ceramic_tile      # the plain tile/brick families
+  sound: stone
+  hardness: 1.5
+  resistance: 6.0
+  mapColor: STONE
+  tool: pickaxe
+
+- id: terrazzo
+  sound: stone
+  hardness: 1.8
+  resistance: 6.0
+  mapColor: STONE
+  tool: pickaxe
+
+- id: concrete          # utility pole
+  sound: stone
+  hardness: 2.5
+  resistance: 8.0
+  mapColor: STONE
+  tool: pickaxe
+
+- id: steel_grille      # security grille
+  sound: stone
+  hardness: 2.5
+  resistance: 6.0
+  mapColor: STONE
+  tool: pickaxe
+
+- id: cable             # power line
+  sound: stone
+  hardness: 0.4
+  resistance: 0.4
+  mapColor: STONE
+  tool: pickaxe
+
+- id: glass             # curtain glass + window glass panel
+  sound: glass
+  hardness: 0.3
+  resistance: 0.3
+  mapColor: COLOR_LIGHT_BLUE
+
+- id: window_metal      # framed windows + prefab balcony
+  sound: metal
+  hardness: 2.0
+  resistance: 6.0
+  mapColor: STONE
+
+- id: steel_frame       # steel window frame (kept sound=stone from its original blockProps)
+  sound: stone
+  hardness: 2.0
+  resistance: 6.0
+  mapColor: STONE
+  tool: pickaxe

@@ -7,12 +7,16 @@ Content flow
 Author editable inputs live under `content/`:
 
 - `content/palettes/*.json`: color palette definitions
-- `content/families/*.json`: material family definitions
+- `content/materials.yaml`: shared material layer (physics + `tool`/`tag_transformers`), referenced by families via `material:`
+- `content/families/*.yaml`: material family definitions — colour axes + `material` only (YAML; the generator needs PyYAML)
+- `content/block_types.yaml`: the shape catalog (common cube/slab/stairs/wall/… + special kit-driven shapes)
+- `content/apply.yaml`: assigns block_types to families (+ per-cell collision/kit overrides; framed windows use `pieces`)
+- `content/blocks.yaml`: one-off "single" blocks that don't fit a family's colour × block_type grid
 - `content/collections/*.json`: enabled family sets
 - `content/base_lang/*.json`: hand-written base localization keys
 
 These inputs describe mod-internal content structure only. They do not describe how textures are generated.
-Each family also carries a code-owned `preset` that tells the runtime what kind of system it belongs to, such as solid materials, glass systems, future window-frame systems, or future infrastructure systems. Families also distinguish between `commonShapes` for ordinary block variants and `specialShapes` for future system-specific parts.
+Each family also carries a code-owned `preset` that tells the runtime what kind of system it belongs to, such as solid materials, glass systems, window-frame systems, or infrastructure systems. A block is a family's `material` × colour-axes cartesian × the block_types assigned to it in `apply.yaml`, or a one-off row in `blocks.yaml`.
 
 Generated outputs live under `src/generated/`:
 

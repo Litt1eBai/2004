@@ -1,0 +1,8 @@
+# Python deps for tools/generate_content.py and tools/where.py.
+# The generator runs on the system `python` invoked by Gradle's generateContent task
+# (build.gradle, -PpythonCmd=python). Install on every machine that builds the mod:
+#
+#     python -m pip install -r tools/requirements.txt
+#
+# (xlsx, when added in a later step, is read with the stdlib zip+xml — no openpyxl needed.)
+PyYAML>=6.0

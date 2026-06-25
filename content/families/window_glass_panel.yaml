@@ -1,0 +1,12 @@
+id: window_glass_panel
+preset: window_glass_system
+zh: 窗玻璃
+en: Window Glass
+category: windows
+renderType: translucent
+baseTexture: window_glass_panel
+colors:
+- blue
+- clear
+- green
+material: glass

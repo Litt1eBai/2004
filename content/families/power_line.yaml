@@ -1,0 +1,11 @@
+id: power_line
+preset: cable_system
+zh: 电线
+en: Power Line
+category: infrastructure
+renderType: cutout
+baseTexture: power_line
+colors:
+- gray
+- black
+material: cable

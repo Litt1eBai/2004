@@ -1,0 +1,10 @@
+id: concrete_utility_pole
+preset: utility_pole
+zh: 水泥电线杆
+en: Concrete Utility Pole
+category: infrastructure
+renderType: solid
+baseTexture: concrete_utility_pole
+colors:
+- gray
+material: concrete

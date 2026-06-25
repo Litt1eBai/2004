@@ -1,0 +1,13 @@
+id: painted_cement
+preset: solid_material
+zh: 水泥
+en: Cement
+category: concrete_and_plaster
+renderType: solid
+baseTexture: painted_cement
+randomVariants: 4
+colors:
+- plain
+- cream
+- orange
+material: ceramic_tile

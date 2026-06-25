@@ -1,0 +1,19 @@
+id: horizontal_tile
+preset: solid_material
+zh: 横条砖
+en: Horizontal Tile
+category: brick_and_tile
+renderType: solid
+baseTexture: horizontal_tile
+colors:
+- white
+- dirty_white
+- pale_cream
+- sunlit_mustard
+- pale_peach
+- dusty_rose
+- light_ceramic_blue
+- dusty_mauve_brown
+- mosaic_blue
+- emerald_dot
+material: ceramic_tile

@@ -6,6 +6,16 @@ import re
 from pathlib import Path
 import shutil
 
+try:
+    import yaml  # PyYAML — family docs + materials are authored as YAML
+except ModuleNotFoundError as exc:  # fail with an actionable message, not a bare traceback
+    raise SystemExit(
+        "generate_content.py requires PyYAML, which is not installed for this Python "
+        f"({__import__('sys').executable}).\n"
+        "  Install it:  python -m pip install -r tools/requirements.txt\n"
+        "  (Gradle's generateContent runs the system `python`; install there too.)"
+    ) from exc
+
 # Codegen always emits LF, on every platform. Python text-mode writes translate
 # "\n" -> os.linesep (CRLF on Windows), which makes Windows gradle builds churn every
 # generated file against the LF copies committed from Linux. Patch write_text at the
@@ -160,6 +170,10 @@ def read_json(path: Path):
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def read_yaml(path: Path):
+    return yaml.safe_load(path.read_text(encoding="utf-8"))
+
+
 def java_string(value: str) -> str:
     escaped = value.replace("\\", "\\\\").replace("\"", "\\\"")
     return f"\"{escaped}\""
@@ -224,9 +238,12 @@ def load_content():
     colors = read_json(CONTENT_DIR / "palettes" / "colors.json")
     color_map = {entry["id"]: entry for entry in colors}
 
+    materials = read_yaml(CONTENT_DIR / "materials.yaml")
+    material_map = {entry["id"]: entry for entry in materials}
+
     families = []
-    for path in sorted((CONTENT_DIR / "families").glob("*.json")):
-        families.append(read_json(path))
+    for path in sorted((CONTENT_DIR / "families").glob("*.yaml")):
+        families.append(read_yaml(path))
 
     collections = []
     for path in sorted((CONTENT_DIR / "collections").glob("*.json")):
@@ -235,7 +252,146 @@ def load_content():
     base_en = read_json(CONTENT_DIR / "base_lang" / "en_us.json")
     base_zh = read_json(CONTENT_DIR / "base_lang" / "zh_cn.json")
 
-    return colors, color_map, families, collections, base_en, base_zh
+    # Step 4: block-type catalog + per-family assignment + singles. Families declare
+    # colour + material only; their shapes live in apply.yaml against the block_types.yaml
+    # catalog. Resolve apply back into each family's commonShapes/specialShapes/pieces so
+    # the rest of the generator (expansion, Java specs, tags, loot) is unchanged.
+    block_types = read_yaml(CONTENT_DIR / "block_types.yaml")
+    apply_map = read_yaml(CONTENT_DIR / "apply.yaml") or {}
+    singles = read_yaml(CONTENT_DIR / "blocks.yaml") or []
+    block_type_map = validate_block_types(block_types)
+    for family in families:
+        resolve_apply_into_family(family, apply_map, block_type_map)
+
+    return colors, color_map, material_map, families, collections, base_en, base_zh, block_types, apply_map, singles
+
+
+def validate_block_types(block_types: dict) -> dict:
+    """Cross-validate content/block_types.yaml against the generator's shape/name tables so
+    the declared catalog cannot silently drift, and return {id: entry} for apply resolution.
+    common entries must match SHAPE_SUFFIXES/ZH/EN exactly; special entries must use a known
+    kit and match the SPECIAL_SHAPE name tables."""
+    common = {bt["id"]: bt for bt in block_types.get("common", [])}
+    special = {bt["id"]: bt for bt in block_types.get("special", [])}
+    for shape in SUPPORTED_GENERATED_SHAPES:
+        if shape not in common:
+            raise SystemExit(f"block_types.yaml missing common shape '{shape}'")
+    for sid, bt in common.items():
+        if sid not in SUPPORTED_GENERATED_SHAPES:
+            raise SystemExit(f"block_types.yaml common shape '{sid}' is not a supported generated shape")
+        if (bt.get("suffix", "") != SHAPE_SUFFIXES[sid]
+                or bt.get("zh", "") != SHAPE_ZH_NAMES[sid]
+                or bt.get("en", "") != SHAPE_EN_NAMES[sid]):
+            raise SystemExit(f"block_types.yaml common shape '{sid}' disagrees with the generator tables")
+    for sid, bt in special.items():
+        if bt.get("kit") not in SUPPORTED_KITS:
+            raise SystemExit(f"block_types.yaml special '{sid}' uses unsupported kit '{bt.get('kit')}'")
+        if SPECIAL_SHAPE_ZH.get(sid) != bt.get("zh") or SPECIAL_SHAPE_EN.get(sid) != bt.get("en"):
+            raise SystemExit(f"block_types.yaml special '{sid}' name disagrees with the generator tables")
+    return {**common, **special}
+
+
+def resolve_apply_into_family(family: dict, apply_map: dict, block_type_map: dict):
+    """Inject a family's commonShapes/specialShapes/pieces from its content/apply.yaml entry
+    (defaults sourced from the block_types catalog, overridable per cell). Reproduces the
+    exact lists families used to declare inline, so downstream expansion is byte-identical."""
+    fid = family["id"]
+    if fid not in apply_map:
+        raise SystemExit(f"Family '{fid}' has no entry in content/apply.yaml")
+    spec = apply_map[fid] or {}
+
+    family["commonShapes"] = list(spec.get("common", []))
+
+    special_shapes = []
+    for entry in spec.get("special", []):
+        if isinstance(entry, str):
+            entry = {"type": entry}
+        if "type" not in entry:
+            raise SystemExit(f"apply '{fid}' special entry missing 'type': {entry}")
+        type_id = entry["type"]
+        if type_id not in block_type_map:
+            raise SystemExit(f"apply '{fid}' references unknown block_type '{type_id}'")
+        bt = block_type_map[type_id]
+        special_shapes.append({
+            "shape": type_id,
+            "kit": entry.get("kit", bt.get("kit", "static")),
+            "modelPrefix": entry.get("modelPrefix", type_id),
+            "collision": entry.get("collision", "full"),
+            "connectsBy": entry.get("connectsBy", ""),
+            "zh": entry.get("zh"),
+            "en": entry.get("en"),
+        })
+    family["specialShapes"] = special_shapes
+
+    # Framed-window pieces are self-contained FROZEN geometry: a piece is identified by its
+    # `type` (= default modelPrefix) and carries its own kit/collision/zh/en overrides. A piece
+    # `type` is NOT a content/block_types.yaml entry (e.g. balcony_left, framed_window_slope are
+    # frozen src/main models), so it is deliberately not validated against that catalog.
+    pieces = []
+    for raw in spec.get("pieces", []):
+        if "modelPrefix" in raw:
+            model_prefix = raw["modelPrefix"]
+        elif "type" in raw:
+            model_prefix = raw["type"]
+        else:
+            raise SystemExit(f"apply '{fid}' piece missing 'type'/'modelPrefix': {raw}")
+        piece = {"modelPrefix": model_prefix}
+        for key in ("kit", "collision", "zh", "en"):
+            if key in raw:
+                piece[key] = raw[key]
+        pieces.append(piece)
+    if pieces:
+        family["pieces"] = pieces
+
+
+def build_singles_blocks(singles: list[dict], material_map: dict) -> list[dict]:
+    """Expand content/blocks.yaml singles into catalog blocks (one row each). Singles share
+    the downstream pipeline with cartesian families; none exist yet, so this is a no-op until
+    a row is added. The block dict mirrors build_block_catalog's common-shape rows (incl.
+    randomVariants + slopeFace, which write_cube/slope/triangle_wall_resources require).
+    NOTE (step 5): singles are currently always emitted — not gated by a collection — and a
+    single's `familyId` must name a real family if it uses a tagged shape (wall/slab/stairs),
+    since write_block_tag_files keys material tag-transformers by family. Revisit when the
+    collections sheet lands."""
+    blocks = []
+    for single in singles:
+        mat = material_map[single["material"]]
+        blocks.append({
+            "id": single["id"],
+            "baseId": single.get("baseId", single["id"]),
+            "familyId": single.get("familyId", ""),
+            "preset": single["preset"],
+            "colorId": single.get("colorId", ""),
+            "shape": single["shape"],
+            "zhName": single["zh"],
+            "enName": single["en"],
+            "category": single["category"],
+            "renderType": single["renderType"],
+            "texturePath": single.get("texturePath", ""),
+            "sound": mat["sound"],
+            "hardness": mat["hardness"],
+            "resistance": mat["resistance"],
+            "mapColor": mat["mapColor"],
+            "kit": single.get("kit", ""),
+            "modelPrefix": single.get("modelPrefix", ""),
+            "collision": single.get("collision", "full"),
+            "connectsBy": single.get("connectsBy", ""),
+            "randomVariants": single.get("randomVariants", 1),
+            "slopeFace": single.get("slopeFace", single.get("texturePath", "")),
+        })
+    return blocks
+
+
+def material_props(family: dict, material_map: dict) -> dict:
+    """Resolve a family's physics from its referenced material. Returns the same four keys
+    families used to inline as blockProps, so downstream call sites are unchanged."""
+    mat = material_map[family["material"]]
+    return {
+        "sound": mat["sound"],
+        "hardness": mat["hardness"],
+        "resistance": mat["resistance"],
+        "mapColor": mat["mapColor"],
+    }
 
 
 def validate_framed_window_family(family: dict, known_colors: set[str]):
@@ -279,13 +435,23 @@ def validate_framed_window_family(family: dict, known_colors: set[str]):
             voxel_shape_to_java(collision)
 
 
-def validate_content(colors: list[dict], families: list[dict], collections: list[dict]):
+def validate_content(colors: list[dict], material_map: dict, families: list[dict], collections: list[dict]):
     ensure_unique(colors, "id", "color")
     ensure_unique(families, "id", "family")
     ensure_unique(collections, "id", "collection")
 
     known_colors = {color["id"] for color in colors}
     family_ids = {family["id"] for family in families}
+
+    # Cross-source referential integrity: every family must reference a known material.
+    for family in families:
+        if "material" not in family:
+            raise SystemExit(f"Family '{family['id']}' must declare a 'material'.")
+        if family["material"] not in material_map:
+            raise SystemExit(
+                f"Family '{family['id']}' references unknown material '{family['material']}'. "
+                f"Known: {sorted(material_map)}"
+            )
 
     enabled_family_ids = []
     for collection in collections:
@@ -376,13 +542,13 @@ def resolve_enabled_families(families: list[dict], collections: list[dict]) -> l
     return [family_map[family_id] for family_id in enabled_family_ids]
 
 
-def build_framed_window_blocks(color_map: dict[str, dict], family: dict) -> list[dict]:
+def build_framed_window_blocks(color_map: dict[str, dict], family: dict, material_map: dict) -> list[dict]:
     """Expand a framed-window family into one block per (colorPair, piece). Each block
     is kit='framed_window' (FramedWindowBlock), carries the two-color frame/glass texture
     paths, renderType='translucent' (the multipart forces cutout/translucent per child).
     id = {family}_{frame}_{glass}_{pieceModelPrefix}."""
     blocks = []
-    block_props = family["blockProps"]
+    block_props = material_props(family, material_map)
     frame_texture = family["frameTexture"]
     glass_texture = family["glassTexture"]
     for frame_color, glass_color in family["colorPairs"]:
@@ -430,13 +596,13 @@ def build_framed_window_blocks(color_map: dict[str, dict], family: dict) -> list
     return blocks
 
 
-def build_block_catalog(color_map: dict[str, dict], families: list[dict]) -> list[dict]:
+def build_block_catalog(color_map: dict[str, dict], families: list[dict], material_map: dict) -> list[dict]:
     blocks = []
     for family in families:
         if is_framed_window_family(family):
-            blocks.extend(build_framed_window_blocks(color_map, family))
+            blocks.extend(build_framed_window_blocks(color_map, family, material_map))
             continue
-        block_props = family["blockProps"]
+        block_props = material_props(family, material_map)
         for color_id in family["colors"]:
             color = color_map[color_id]
             texture_path = f"{family['baseTexture']}_{color_id}"
@@ -524,10 +690,10 @@ public final class GeneratedPalette {{
     (GENERATED_JAVA_DIR / "GeneratedPalette.java").write_text(content, encoding="utf-8")
 
 
-def write_generated_families(families: list[dict]):
+def write_generated_families(families: list[dict], material_map: dict):
     entries = []
     for family in families:
-        props = family["blockProps"]
+        props = material_props(family, material_map)
         entries.append(
             "            new MaterialFamilySpec(\n"
             f"                    {java_string(family['id'])},\n"
@@ -1583,6 +1749,17 @@ def _write_prefab_window_resources(block: dict, blockstate_dir: Path, block_mode
     )
 
 
+FROZEN_GEOMETRY_SHAPES = ("pane", "grille")
+
+
+def is_frozen_geometry(block: dict) -> bool:
+    """Special/irregular blocks whose blockstate + models + item model are hand-authored and
+    FROZEN under src/main (Blockbench-editable). The generator no longer emits their geometry —
+    it owns only their DATA (catalog, loot, lang, tags, item definition). A block is frozen if it
+    carries a special `kit` or uses an irregular shape. See tools/where.py for the source map."""
+    return bool(block.get("kit")) or block["shape"] in FROZEN_GEOMETRY_SHAPES
+
+
 def write_model_files(blocks: list[dict]):
     blockstate_dir = GENERATED_RES_DIR / "blockstates"
     block_model_dir = GENERATED_RES_DIR / "models" / "block"
@@ -1591,8 +1768,9 @@ def write_model_files(blocks: list[dict]):
         directory.mkdir(parents=True, exist_ok=True)
 
     for block in blocks:
-        if block["kit"]:
-            write_special_resources(block, blockstate_dir, block_model_dir, item_model_dir)
+        if is_frozen_geometry(block):
+            # Geometry (blockstate + models + item model) is hand-authored under src/main.
+            # Only this block's data (catalog/loot/lang/tags/item definition) is generated.
             continue
         match block["shape"]:
             case "cube":
@@ -1603,39 +1781,50 @@ def write_model_files(blocks: list[dict]):
                 write_stairs_resources(block, blockstate_dir, block_model_dir, item_model_dir)
             case "wall":
                 write_wall_resources(block, blockstate_dir, block_model_dir, item_model_dir)
-            case "pane":
-                write_pane_resources(block, blockstate_dir, block_model_dir, item_model_dir)
-            case "grille":
-                write_grille_resources(block, blockstate_dir, block_model_dir, item_model_dir)
             case "slope":
                 write_slope_resources(block, blockstate_dir, block_model_dir, item_model_dir)
             case "triangle_wall":
                 write_triangle_wall_resources(block, blockstate_dir, block_model_dir, item_model_dir)
             case _:
-                raise SystemExit(f"Unsupported generated shape: {block['shape']}")
+                raise SystemExit(
+                    f"Unsupported non-frozen shape '{block['shape']}' for {block['id']}; "
+                    f"irregular shapes must be frozen (hand-authored in src/main)."
+                )
 
     write_item_definition_files(blocks)
 
 
-def write_block_tag_files(blocks: list[dict]):
-    """Emit vanilla-merging block tags (all replace:false). Walls/slabs/stairs must
-    be listed or vanilla connection/behavior silently fails. mineable/pickaxe sets
-    mining SPEED only (drops are gated by the loot tables, not this tag). Glass
-    (sound == 'glass') is intentionally excluded from mineable/pickaxe, matching
-    vanilla. Each tag is skipped individually when it has no members."""
+def write_block_tag_files(blocks: list[dict], families: list[dict], material_map: dict):
+    """Emit vanilla-merging block tags (all replace:false). Walls/slabs/stairs must be listed
+    or vanilla connection/behavior silently fails. mineable/<tool> is driven by the block's
+    MATERIAL tool: a tool => that mineable tag; no tool => no mineable tag (so glass and
+    window_metal stay excluded, matching the old `sound=='stone'` rule). A material's
+    `tag_transformers` rewrites a generic tag to a specific one (e.g. wood: {slabs: wooden_slabs});
+    none of the current materials declare any, so output is unchanged. mineable sets mining
+    SPEED only (drops are gated by loot tables). Empty tags are skipped individually."""
     tag_dir = GENERATED_DATA_DIR / "minecraft" / "tags" / "block"
 
-    tag_values = {
-        "walls.json": [block["id"] for block in blocks if block["shape"] == "wall"],
-        "slabs.json": [block["id"] for block in blocks if block["shape"] == "slab"],
-        "stairs.json": [block["id"] for block in blocks if block["shape"] == "stairs"],
-        "mineable/pickaxe.json": [block["id"] for block in blocks if block["sound"] == "stone"],
-    }
+    tool_of_family = {f["id"]: material_map[f["material"]].get("tool") for f in families}
+    transforms_of_family = {f["id"]: (material_map[f["material"]].get("tag_transformers") or {}) for f in families}
+    shape_to_tag = {"wall": "walls", "slab": "slabs", "stairs": "stairs"}
+
+    # Pre-seed the shape tags so their file/value order is stable; mineable tags append
+    # in blocks order. Within-file value order = blocks order (matches prior output).
+    tag_values: dict[str, list[str]] = {"walls": [], "slabs": [], "stairs": []}
+    for block in blocks:
+        family_id = block["familyId"]
+        base_tag = shape_to_tag.get(block["shape"])
+        if base_tag is not None:
+            tag = transforms_of_family[family_id].get(base_tag, base_tag)
+            tag_values.setdefault(tag, []).append(block["id"])
+        tool = tool_of_family.get(family_id)
+        if tool:
+            tag_values.setdefault(f"mineable/{tool}", []).append(block["id"])
 
     for rel_path, block_ids in tag_values.items():
         if not block_ids:
             continue
-        path = tag_dir / rel_path
+        path = tag_dir / f"{rel_path}.json"
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(
             json.dumps(
@@ -1764,10 +1953,21 @@ def write_loot_table_files(blocks: list[dict]):
         )
 
 
-def write_manifest(colors: list[dict], families: list[dict], collections: list[dict], blocks: list[dict]):
+def write_manifest(colors: list[dict], families: list[dict], collections: list[dict], blocks: list[dict],
+                   block_types: dict, apply_map: dict, singles: list[dict]):
+    # Manifest families reflect the Step-4 schema: colour + material only. Strip the
+    # apply-resolved shape keys (re-injected at load purely for the expansion); the
+    # block_types catalog and the apply assignment are surfaced as first-class instead.
+    manifest_families = [
+        {k: v for k, v in family.items() if k not in ("commonShapes", "specialShapes", "pieces")}
+        for family in families
+    ]
     manifest = {
         "colors": colors,
-        "families": families,
+        "block_types": block_types,
+        "apply": apply_map,
+        "families": manifest_families,
+        "singles": singles,
         "collections": collections,
         "blocks": blocks,
     }
@@ -1800,21 +2000,22 @@ def write_grille_connect_tag(blocks: list[dict]):
 
 def main():
     reset_generated_outputs()
-    colors, color_map, families, collections, base_en, base_zh = load_content()
-    validate_content(colors, families, collections)
+    colors, color_map, material_map, families, collections, base_en, base_zh, block_types, apply_map, singles = load_content()
+    validate_content(colors, material_map, families, collections)
     enabled_families = resolve_enabled_families(families, collections)
-    blocks = build_block_catalog(color_map, enabled_families)
+    blocks = build_block_catalog(color_map, enabled_families, material_map)
+    blocks.extend(build_singles_blocks(singles, material_map))
     write_generated_palette(colors)
-    write_generated_families(enabled_families)
+    write_generated_families(enabled_families, material_map)
     write_generated_collections(collections)
     write_generated_block_catalog(blocks)
     write_generated_special_shapes(blocks)
     write_lang_files(base_en, base_zh, blocks)
     write_model_files(blocks)
-    write_block_tag_files(blocks)
+    write_block_tag_files(blocks, enabled_families, material_map)
     write_grille_connect_tag(blocks)
     write_loot_table_files(blocks)
-    write_manifest(colors, enabled_families, collections, blocks)
+    write_manifest(colors, enabled_families, collections, blocks, block_types, apply_map, singles)
     print(f"Generated {len(blocks)} block definitions from {len(enabled_families)} enabled families.")
 
 

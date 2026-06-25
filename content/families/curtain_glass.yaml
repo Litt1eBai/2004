@@ -1,0 +1,12 @@
+id: curtain_glass
+preset: glass_system
+zh: 玻璃幕墙
+en: Curtain Glass
+category: windows
+renderType: translucent
+baseTexture: curtain_glass
+colors:
+- blue
+- clear
+- green
+material: glass

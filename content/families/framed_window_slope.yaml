@@ -1,0 +1,14 @@
+id: framed_window_slope
+preset: framed_window_system
+zh: 带框斜窗
+en: Framed Window (Diagonal)
+category: windows
+renderType: translucent
+baseTexture: steel_window_frame
+frameTexture: steel_window_frame
+glassTexture: window_glass_panel
+colors: []
+colorPairs:
+- - white
+  - clear
+material: window_metal

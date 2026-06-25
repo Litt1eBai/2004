@@ -1,0 +1,73 @@
+# Family × block_types assignment (Step 4; XKDeco apply sheet, transitional YAML form).
+#
+# Each key is a family id (content/families/<id>.yaml). The value lists which block_types
+# (content/block_types.yaml) that family produces, with optional per-cell overrides. This
+# is the ONLY place block-type assignment lives — families declare material + colour only.
+#
+#   common:  [type, ...]                       -> regular shapes (cube/slab/.../grille)
+#   special: [type | {type, kit, collision,    -> kit-driven frozen shapes; bare string uses
+#                       modelPrefix, connectsBy}]  the block_type defaults, a map overrides them
+#   pieces:  [{type, kit, modelPrefix,         -> framed-window pieces (framed_window_system
+#             collision, zh, en}]                 families; expanded per colour-PAIR, not per colour.
+#                                                 'type' is the piece id / default modelPrefix —
+#                                                 frozen src/main geometry, NOT a block_types ref.
+#
+# collision box-strings use the VoxelShape DSL "(x1,y1,z1,x2,y2,z2)"; "full"/"none" are literals.
+
+# --- regular brick/tile/stone families (solid_material) ---
+small_tile:
+  common: [cube, slab, stairs, wall, slope, triangle_wall]
+horizontal_tile:
+  common: [cube, slab, stairs, wall, slope, triangle_wall]
+vertical_tile:
+  common: [cube, slab, stairs, wall, slope, triangle_wall]
+painted_cement:
+  common: [cube, slab, stairs, wall, slope, triangle_wall]
+mosaic:
+  common: [cube, slab, stairs, wall, slope]
+terrazzo:
+  common: [cube, slab, stairs, wall]
+
+# --- glass ---
+curtain_glass:
+  common: [cube, pane]
+window_glass_panel:
+  common: [cube, pane]
+  special: [window_panel]
+
+# --- security grille ---
+security_grille:
+  common: [grille]
+  special: [grille_panel, grille_cap, grille_arch, grille_cage, grille_box]
+
+# --- steel window frame (frame-only) ---
+steel_window_frame:
+  special: [window_frame, window_frame_cross, window_frame_corner]
+
+# --- infrastructure: utility pole + power line ---
+concrete_utility_pole:
+  special:
+  - {type: pole, collision: "(6,0,6,10,16,10)"}
+  - pole_arm
+  - pole_base
+power_line:
+  special:
+  - {type: wire, collision: "(6,6,0,10,10,16)"}
+
+# --- framed windows (framed_window_system: colour-PAIR × piece) ---
+framed_window_1:
+  pieces:
+  - {type: pane, collision: "(0,0,7,16,16,9)"}
+framed_window_2:
+  pieces:
+  - {type: pane, collision: "(0,0,7,16,16,9)"}
+framed_window_3:
+  pieces:
+  - {type: pane, collision: "(0,0,7,16,16,9)"}
+framed_window_slope:
+  pieces:
+  - {type: framed_window_slope, kit: framed_window_slope, collision: full}
+prefab_window_balcony:
+  pieces:
+  - {type: balcony_left,  kit: prefab_window, zh: 左, en: Left,  collision: "(1,0,1,16,16,3)"}
+  - {type: balcony_right, kit: prefab_window, zh: 右, en: Right, collision: "(0,0,1,15,16,3)"}

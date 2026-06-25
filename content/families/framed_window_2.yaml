@@ -1,0 +1,16 @@
+id: framed_window_2
+preset: framed_window_system
+zh: 带框窗2
+en: Framed Window II
+category: windows
+renderType: translucent
+baseTexture: steel_window_frame
+frameTexture: steel_window_frame
+glassTexture: window_glass_panel
+colors: []
+colorPairs:
+- - white
+  - clear
+- - black
+  - clear
+material: window_metal

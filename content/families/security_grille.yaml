@@ -1,0 +1,10 @@
+id: security_grille
+preset: security_grille
+zh: 防盗窗
+en: Security Grille
+category: windows
+renderType: cutout
+baseTexture: security_grille
+colors:
+- gray
+material: steel_grille

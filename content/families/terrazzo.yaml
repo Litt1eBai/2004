@@ -1,0 +1,11 @@
+id: terrazzo
+preset: solid_material
+zh: 水刷石
+en: Terrazzo
+category: stone_and_aggregate
+renderType: solid
+baseTexture: terrazzo
+colors:
+- brown
+- gray
+material: terrazzo
