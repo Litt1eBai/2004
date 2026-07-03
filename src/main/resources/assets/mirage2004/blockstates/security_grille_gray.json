@@ -1,155 +1,84 @@
 {
   "multipart": [
     {
-      "apply": {
-        "model": "mirage2004:block/security_grille_gray_post"
-      }
+      "when": { "facing": "north" },
+      "apply": { "model": "mirage2004:block/security_grille_gray_panel" }
     },
     {
-      "when": {
-        "north": "true"
-      },
-      "apply": {
-        "model": "mirage2004:block/security_grille_gray_side"
-      }
+      "when": { "facing": "east" },
+      "apply": { "model": "mirage2004:block/security_grille_gray_panel", "y": 90 }
     },
     {
-      "when": {
-        "east": "true"
-      },
-      "apply": {
-        "model": "mirage2004:block/security_grille_gray_side",
-        "y": 90
-      }
+      "when": { "facing": "south" },
+      "apply": { "model": "mirage2004:block/security_grille_gray_panel", "y": 180 }
     },
     {
-      "when": {
-        "south": "true"
-      },
-      "apply": {
-        "model": "mirage2004:block/security_grille_gray_side_alt"
-      }
+      "when": { "facing": "west" },
+      "apply": { "model": "mirage2004:block/security_grille_gray_panel", "y": 270 }
     },
     {
-      "when": {
-        "west": "true"
-      },
-      "apply": {
-        "model": "mirage2004:block/security_grille_gray_side_alt",
-        "y": 90
-      }
+      "when": { "facing": "north", "frame_top": "true" },
+      "apply": { "model": "mirage2004:block/security_grille_gray_frame_top" }
     },
     {
-      "when": {
-        "north": "false"
-      },
-      "apply": {
-        "model": "mirage2004:block/security_grille_gray_noside"
-      }
+      "when": { "facing": "east", "frame_top": "true" },
+      "apply": { "model": "mirage2004:block/security_grille_gray_frame_top", "y": 90 }
     },
     {
-      "when": {
-        "east": "false"
-      },
-      "apply": {
-        "model": "mirage2004:block/security_grille_gray_noside_alt"
-      }
+      "when": { "facing": "south", "frame_top": "true" },
+      "apply": { "model": "mirage2004:block/security_grille_gray_frame_top", "y": 180 }
     },
     {
-      "when": {
-        "south": "false"
-      },
-      "apply": {
-        "model": "mirage2004:block/security_grille_gray_noside_alt",
-        "y": 90
-      }
+      "when": { "facing": "west", "frame_top": "true" },
+      "apply": { "model": "mirage2004:block/security_grille_gray_frame_top", "y": 270 }
     },
     {
-      "when": {
-        "west": "false"
-      },
-      "apply": {
-        "model": "mirage2004:block/security_grille_gray_noside",
-        "y": 270
-      }
+      "when": { "facing": "north", "frame_bottom": "true" },
+      "apply": { "model": "mirage2004:block/security_grille_gray_frame_bottom" }
     },
     {
-      "when": {
-        "top": "true",
-        "north": "true"
-      },
-      "apply": {
-        "model": "mirage2004:block/security_grille_gray_cap_arm_top"
-      }
+      "when": { "facing": "east", "frame_bottom": "true" },
+      "apply": { "model": "mirage2004:block/security_grille_gray_frame_bottom", "y": 90 }
     },
     {
-      "when": {
-        "top": "true",
-        "east": "true"
-      },
-      "apply": {
-        "model": "mirage2004:block/security_grille_gray_cap_arm_top",
-        "y": 90
-      }
+      "when": { "facing": "south", "frame_bottom": "true" },
+      "apply": { "model": "mirage2004:block/security_grille_gray_frame_bottom", "y": 180 }
     },
     {
-      "when": {
-        "top": "true",
-        "south": "true"
-      },
-      "apply": {
-        "model": "mirage2004:block/security_grille_gray_cap_arm_top",
-        "y": 180
-      }
+      "when": { "facing": "west", "frame_bottom": "true" },
+      "apply": { "model": "mirage2004:block/security_grille_gray_frame_bottom", "y": 270 }
     },
     {
-      "when": {
-        "top": "true",
-        "west": "true"
-      },
-      "apply": {
-        "model": "mirage2004:block/security_grille_gray_cap_arm_top",
-        "y": 270
-      }
+      "when": { "facing": "north", "frame_left": "true" },
+      "apply": { "model": "mirage2004:block/security_grille_gray_frame_left" }
     },
     {
-      "when": {
-        "bottom": "true",
-        "north": "true"
-      },
-      "apply": {
-        "model": "mirage2004:block/security_grille_gray_cap_arm_bottom"
-      }
+      "when": { "facing": "east", "frame_left": "true" },
+      "apply": { "model": "mirage2004:block/security_grille_gray_frame_left", "y": 90 }
     },
     {
-      "when": {
-        "bottom": "true",
-        "east": "true"
-      },
-      "apply": {
-        "model": "mirage2004:block/security_grille_gray_cap_arm_bottom",
-        "y": 90
-      }
+      "when": { "facing": "south", "frame_left": "true" },
+      "apply": { "model": "mirage2004:block/security_grille_gray_frame_left", "y": 180 }
     },
     {
-      "when": {
-        "bottom": "true",
-        "south": "true"
-      },
-      "apply": {
-        "model": "mirage2004:block/security_grille_gray_cap_arm_bottom",
-        "y": 180
-      }
+      "when": { "facing": "west", "frame_left": "true" },
+      "apply": { "model": "mirage2004:block/security_grille_gray_frame_left", "y": 270 }
     },
     {
-      "when": {
-        "bottom": "true",
-        "west": "true"
-      },
-      "apply": {
-        "model": "mirage2004:block/security_grille_gray_cap_arm_bottom",
-        "y": 270
-      }
+      "when": { "facing": "north", "frame_right": "true" },
+      "apply": { "model": "mirage2004:block/security_grille_gray_frame_right" }
+    },
+    {
+      "when": { "facing": "east", "frame_right": "true" },
+      "apply": { "model": "mirage2004:block/security_grille_gray_frame_right", "y": 90 }
+    },
+    {
+      "when": { "facing": "south", "frame_right": "true" },
+      "apply": { "model": "mirage2004:block/security_grille_gray_frame_right", "y": 180 }
+    },
+    {
+      "when": { "facing": "west", "frame_right": "true" },
+      "apply": { "model": "mirage2004:block/security_grille_gray_frame_right", "y": 270 }
     }
   ]
 }

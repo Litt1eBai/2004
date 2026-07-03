@@ -1,0 +1,8 @@
+{
+  "parent": "mirage2004:block/special/security_grille_frame_right",
+  "textures": {
+    "pane": "mirage2004:block/security_grille_gray",
+    "edge": "mirage2004:block/security_grille_gray_top"
+  },
+  "render_type": "minecraft:cutout"
+}

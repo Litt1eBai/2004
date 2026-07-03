@@ -1,0 +1,20 @@
+{
+  "comment": "Bottom frame for mergeable security grille panels. NORTH-authored; protrudes toward the facing side (negative Z).",
+  "parent": "minecraft:block/block",
+  "render_type": "minecraft:cutout",
+  "textures": { "particle": "#edge" },
+  "elements": [
+    {
+      "from": [0, 0, 4],
+      "to": [16, 2, 9],
+      "faces": {
+        "north": { "uv": [0, 14, 16, 16], "texture": "#edge" },
+        "east": { "uv": [4, 14, 9, 16], "texture": "#edge" },
+        "south": { "uv": [0, 14, 16, 16], "texture": "#edge" },
+        "west": { "uv": [4, 14, 9, 16], "texture": "#edge" },
+        "up": { "uv": [0, 4, 16, 9], "texture": "#edge" },
+        "down": { "uv": [0, 4, 16, 9], "texture": "#edge" }
+      }
+    }
+  ]
+}

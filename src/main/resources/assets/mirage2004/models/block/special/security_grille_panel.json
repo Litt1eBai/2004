@@ -1,0 +1,16 @@
+{
+  "comment": "Mergeable security grille panel body. NORTH-authored: a thin 16x16 cutout panel centered at z7-9. Border pieces supply the sealed edges.",
+  "parent": "minecraft:block/block",
+  "render_type": "minecraft:cutout",
+  "textures": { "particle": "#pane" },
+  "elements": [
+    {
+      "from": [0, 0, 7],
+      "to": [16, 16, 9],
+      "faces": {
+        "north": { "uv": [0, 0, 16, 16], "texture": "#pane" },
+        "south": { "uv": [16, 0, 0, 16], "texture": "#pane" }
+      }
+    }
+  ]
+}

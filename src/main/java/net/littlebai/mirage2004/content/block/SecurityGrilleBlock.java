@@ -13,54 +13,50 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.CrossCollisionBlock;
-import net.minecraft.world.level.block.IronBarsBlock;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import net.littlebai.mirage2004.registry.ModBlockTags;
-
 /**
- * 防盗窗 (security grille). Iron-bars-style connecting lattice (extends
- * {@link CrossCollisionBlock}, NOT {@link IronBarsBlock} — its {@code attachsTo} is
- * {@code final}) with two deliberate deviations from vanilla bars:
- *
- * <ul>
- *   <li><b>Horizontal connection</b> joins ONLY complete (full-cube) blocks and other
- *       security grilles. It never joins iron bars or any glass pane (both are
- *       {@code instanceof IronBarsBlock}), nor any glass cube
- *       ({@code #mirage2004:grille_no_connect} = {@code #minecraft:impermeable} + this
- *       mod's glass blocks).</li>
- *   <li><b>Vertical caps</b> ({@link #TOP}/{@link #BOTTOM}) auto-show notched frame stubs (two
- *       strips clearing the pane band) toward each horizontal connection when the cell above/below
- *       is not another grille — walls
- *       and open air alike, so a run frames at every end. The caps are visual; the inherited
- *       full-height (collisionHeight=16) cross collision is the real anti-intrusion barrier.</li>
- * </ul>
+ * Security grille as a mergeable thick panel. The grille body is always a flat panel; frame
+ * properties only mark the outer border of a same-plane panel run.
  */
-public class SecurityGrilleBlock extends CrossCollisionBlock {
+public class SecurityGrilleBlock extends Block implements SimpleWaterloggedBlock {
     public static final MapCodec<SecurityGrilleBlock> CODEC = simpleCodec(SecurityGrilleBlock::new);
-    public static final BooleanProperty TOP = BooleanProperty.create("top");
-    public static final BooleanProperty BOTTOM = BlockStateProperties.BOTTOM;
+    public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
+    public static final BooleanProperty FRAME_TOP = BooleanProperty.create("frame_top");
+    public static final BooleanProperty FRAME_BOTTOM = BooleanProperty.create("frame_bottom");
+    public static final BooleanProperty FRAME_LEFT = BooleanProperty.create("frame_left");
+    public static final BooleanProperty FRAME_RIGHT = BooleanProperty.create("frame_right");
+    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+
+    private final Function<BlockState, VoxelShape> shapes;
 
     public SecurityGrilleBlock(BlockBehaviour.Properties properties) {
-        super(2.0F, 16.0F, 2.0F, 16.0F, 16.0F, properties);
+        super(properties);
         this.registerDefaultState(this.stateDefinition.any()
-                .setValue(NORTH, false)
-                .setValue(EAST, false)
-                .setValue(SOUTH, false)
-                .setValue(WEST, false)
-                .setValue(TOP, false)
-                .setValue(BOTTOM, false)
+                .setValue(FACING, Direction.NORTH)
+                .setValue(FRAME_TOP, true)
+                .setValue(FRAME_BOTTOM, true)
+                .setValue(FRAME_LEFT, true)
+                .setValue(FRAME_RIGHT, true)
                 .setValue(WATERLOGGED, false));
+        this.shapes = makeShapes();
     }
 
     @Override
@@ -68,63 +64,50 @@ public class SecurityGrilleBlock extends CrossCollisionBlock {
         return CODEC;
     }
 
-    // Same shapes as the parent, but TOP/BOTTOM (visual caps only) are excluded from the
-    // per-state shape cache so it doesn't 4x for the cap permutations.
-    @Override
-    protected Function<BlockState, VoxelShape> makeShapes(
-            float postWidth, float postHeight, float wallWidth, float wallBottom, float wallTop) {
-        VoxelShape post = Block.column(postWidth, 0.0, postHeight);
-        Map<Direction, VoxelShape> arms = Shapes.rotateHorizontal(Block.boxZ(wallWidth, wallBottom, wallTop, 0.0, 8.0));
+    private Function<BlockState, VoxelShape> makeShapes() {
+        Map<Direction, VoxelShape> panels = Shapes.rotateHorizontal(Block.box(0.0, 0.0, 7.0, 16.0, 16.0, 9.0));
+        Map<Direction, VoxelShape> topFrames = Shapes.rotateHorizontal(Block.box(0.0, 14.0, 4.0, 16.0, 16.0, 9.0));
+        Map<Direction, VoxelShape> bottomFrames = Shapes.rotateHorizontal(Block.box(0.0, 0.0, 4.0, 16.0, 2.0, 9.0));
+        Map<Direction, VoxelShape> leftFrames = Shapes.rotateHorizontal(Block.box(0.0, 0.0, 4.0, 2.0, 16.0, 9.0));
+        Map<Direction, VoxelShape> rightFrames = Shapes.rotateHorizontal(Block.box(14.0, 0.0, 4.0, 16.0, 16.0, 9.0));
         return this.getShapeForEachState(state -> {
-            VoxelShape shape = post;
-            for (Map.Entry<Direction, BooleanProperty> entry : PROPERTY_BY_DIRECTION.entrySet()) {
-                if (state.getValue(entry.getValue())) {
-                    shape = Shapes.or(shape, arms.get(entry.getKey()));
-                }
+            Direction facing = state.getValue(FACING);
+            VoxelShape shape = panels.get(facing);
+            if (state.getValue(FRAME_TOP)) {
+                shape = Shapes.or(shape, topFrames.get(facing));
             }
-            return shape;
-        }, WATERLOGGED, TOP, BOTTOM);
-    }
-
-    /** Horizontal: complete cubes + other grilles; never bars/panes or glass cubes. */
-    private boolean connectsTo(BlockState neighbour, BlockGetter level, BlockPos neighbourPos) {
-        if (neighbour.getBlock() instanceof SecurityGrilleBlock) {
-            return true;
-        }
-        if (neighbour.getBlock() instanceof IronBarsBlock) {
-            return false; // vanilla iron bars + all glass panes (extend IronBarsBlock)
-        }
-        if (neighbour.is(ModBlockTags.GRILLE_NO_CONNECT)) {
-            return false; // glass cubes (#minecraft:impermeable + this mod's glass blocks)
-        }
-        return !isExceptionForConnection(neighbour) && neighbour.isCollisionShapeFullBlock(level, neighbourPos);
-    }
-
-    /** Vertical cap at the end of a run: shown unless continued by another grille. Walls and
-     *  open air are treated alike (连墙状态和下面类似), so both ends get framed. */
-    private boolean capAt(BlockState neighbour) {
-        return !(neighbour.getBlock() instanceof SecurityGrilleBlock);
+            if (state.getValue(FRAME_BOTTOM)) {
+                shape = Shapes.or(shape, bottomFrames.get(facing));
+            }
+            if (state.getValue(FRAME_LEFT)) {
+                shape = Shapes.or(shape, leftFrames.get(facing));
+            }
+            if (state.getValue(FRAME_RIGHT)) {
+                shape = Shapes.or(shape, rightFrames.get(facing));
+            }
+            return shape.optimize();
+        }, WATERLOGGED);
     }
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        BlockGetter level = context.getLevel();
-        BlockPos pos = context.getClickedPos();
-        BlockPos north = pos.north();
-        BlockPos south = pos.south();
-        BlockPos west = pos.west();
-        BlockPos east = pos.east();
-        BlockPos above = pos.above();
-        BlockPos below = pos.below();
-        FluidState fluid = level.getFluidState(pos);
-        return this.defaultBlockState()
-                .setValue(NORTH, connectsTo(level.getBlockState(north), level, north))
-                .setValue(SOUTH, connectsTo(level.getBlockState(south), level, south))
-                .setValue(WEST, connectsTo(level.getBlockState(west), level, west))
-                .setValue(EAST, connectsTo(level.getBlockState(east), level, east))
-                .setValue(TOP, capAt(level.getBlockState(above)))
-                .setValue(BOTTOM, capAt(level.getBlockState(below)))
-                .setValue(WATERLOGGED, fluid.is(Fluids.WATER));
+        Direction facing = placementFacing(context);
+        BlockState state = this.defaultBlockState()
+                .setValue(FACING, facing)
+                .setValue(WATERLOGGED, context.getLevel().getFluidState(context.getClickedPos()).is(Fluids.WATER));
+        return applyFrameStates(state, context.getLevel(), context.getClickedPos());
+    }
+
+    private static Direction placementFacing(BlockPlaceContext context) {
+        Direction clickedFace = context.getClickedFace();
+        BlockState clickedNeighbour = context.getLevel().getBlockState(context.getClickedPos().relative(clickedFace.getOpposite()));
+        if (clickedNeighbour.getBlock() instanceof SecurityGrilleBlock) {
+            return clickedNeighbour.getValue(FACING);
+        }
+        if (clickedFace.getAxis().isHorizontal()) {
+            return clickedFace.getOpposite();
+        }
+        return context.getHorizontalDirection().getOpposite();
     }
 
     @Override
@@ -133,43 +116,101 @@ public class SecurityGrilleBlock extends CrossCollisionBlock {
         if (state.getValue(WATERLOGGED)) {
             ticks.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
-        if (direction.getAxis().isHorizontal()) {
-            return state.setValue(PROPERTY_BY_DIRECTION.get(direction), connectsTo(neighbourState, level, neighbourPos));
-        }
-        if (direction == Direction.UP) {
-            return state.setValue(TOP, capAt(neighbourState));
-        }
-        if (direction == Direction.DOWN) {
-            return state.setValue(BOTTOM, capAt(neighbourState));
+        if (affectsFrames(direction, state.getValue(FACING))) {
+            return applyFrameStates(state, level, pos);
         }
         return state;
     }
 
-    // Like vanilla bars: nothing occludes through the cutout, so the visual shape is empty.
+    private static boolean affectsFrames(Direction direction, Direction facing) {
+        return direction == Direction.UP
+                || direction == Direction.DOWN
+                || direction == facing
+                || direction == leftOf(facing)
+                || direction == rightOf(facing);
+    }
+
+    private static BlockState applyFrameStates(BlockState state, BlockGetter level, BlockPos pos) {
+        Direction facing = state.getValue(FACING);
+        Direction left = leftOf(facing);
+        Direction right = rightOf(facing);
+        // Frames only exist when mounted in front; an edge seals only where an adjacent grille
+        // (run merge), full block, slab, or stairs already closes the border. Every input here is a
+        // DIRECT neighbour of pos, so vanilla neighbour-shape updates keep the state consistent (no
+        // diagonal dependency on a neighbour's own wall, which the old sameAttachedPanel could not).
+        boolean mounted = mountedInFront(level, pos, facing);
+        return state
+                .setValue(FRAME_TOP, mounted && !sealsEdge(level, pos.above()))
+                .setValue(FRAME_BOTTOM, mounted && !sealsEdge(level, pos.below()))
+                .setValue(FRAME_LEFT, mounted && !sealsEdge(level, pos.relative(left)))
+                .setValue(FRAME_RIGHT, mounted && !sealsEdge(level, pos.relative(right)));
+    }
+
+    /** Mounted on anything to hang against: any block in front except air and other grilles. */
+    private static boolean mountedInFront(BlockGetter level, BlockPos pos, Direction facing) {
+        BlockState front = level.getBlockState(pos.relative(facing));
+        return !front.isAir() && !(front.getBlock() instanceof SecurityGrilleBlock);
+    }
+
+    /** An edge drops its frame where an adjacent grille, full block, slab, or stairs closes it. */
+    private static boolean sealsEdge(BlockGetter level, BlockPos neighbourPos) {
+        BlockState neighbour = level.getBlockState(neighbourPos);
+        return neighbour.getBlock() instanceof SecurityGrilleBlock
+                || neighbour.isCollisionShapeFullBlock(level, neighbourPos)
+                || neighbour.getBlock() instanceof SlabBlock
+                || neighbour.getBlock() instanceof StairBlock;
+    }
+
+    private static Direction leftOf(Direction facing) {
+        return facing.getCounterClockWise();
+    }
+
+    private static Direction rightOf(Direction facing) {
+        return facing.getClockWise();
+    }
+
+    @Override
+    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        return this.shapes.apply(state);
+    }
+
+    @Override
+    protected VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        return this.shapes.apply(state);
+    }
+
     @Override
     protected VoxelShape getVisualShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return Shapes.empty();
     }
 
-    // Cull the shared faces between touching grilles (ported from IronBarsBlock, keyed on
-    // our own block instead of BlockTags.BARS).
     @Override
-    protected boolean skipRendering(BlockState state, BlockState neighbourState, Direction direction) {
-        if (neighbourState.getBlock() instanceof SecurityGrilleBlock) {
-            if (!direction.getAxis().isHorizontal()) {
-                return true;
-            }
-            BooleanProperty here = PROPERTY_BY_DIRECTION.get(direction);
-            BooleanProperty there = PROPERTY_BY_DIRECTION.get(direction.getOpposite());
-            if (here != null && there != null && state.getValue(here) && neighbourState.getValue(there)) {
-                return true;
-            }
-        }
-        return super.skipRendering(state, neighbourState, direction);
+    protected FluidState getFluidState(BlockState state) {
+        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
+    }
+
+    @Override
+    protected boolean propagatesSkylightDown(BlockState state) {
+        return !state.getValue(WATERLOGGED);
+    }
+
+    @Override
+    protected boolean isPathfindable(BlockState state, PathComputationType type) {
+        return false;
+    }
+
+    @Override
+    protected BlockState rotate(BlockState state, Rotation rotation) {
+        return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
+    }
+
+    @Override
+    protected BlockState mirror(BlockState state, Mirror mirror) {
+        return state.rotate(mirror.getRotation(state.getValue(FACING)));
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(NORTH, EAST, WEST, SOUTH, TOP, BOTTOM, WATERLOGGED);
+        builder.add(FACING, FRAME_TOP, FRAME_BOTTOM, FRAME_LEFT, FRAME_RIGHT, WATERLOGGED);
     }
 }
