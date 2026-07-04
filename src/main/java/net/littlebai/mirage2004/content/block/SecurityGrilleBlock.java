@@ -66,10 +66,10 @@ public class SecurityGrilleBlock extends Block implements SimpleWaterloggedBlock
 
     private Function<BlockState, VoxelShape> makeShapes() {
         Map<Direction, VoxelShape> panels = Shapes.rotateHorizontal(Block.box(0.0, 0.0, 7.0, 16.0, 16.0, 9.0));
-        Map<Direction, VoxelShape> topFrames = Shapes.rotateHorizontal(Block.box(0.0, 14.0, 4.0, 16.0, 16.0, 9.0));
-        Map<Direction, VoxelShape> bottomFrames = Shapes.rotateHorizontal(Block.box(0.0, 0.0, 4.0, 16.0, 2.0, 9.0));
-        Map<Direction, VoxelShape> leftFrames = Shapes.rotateHorizontal(Block.box(0.0, 0.0, 4.0, 2.0, 16.0, 9.0));
-        Map<Direction, VoxelShape> rightFrames = Shapes.rotateHorizontal(Block.box(14.0, 0.0, 4.0, 16.0, 16.0, 9.0));
+        Map<Direction, VoxelShape> topFrames = Shapes.rotateHorizontal(Block.box(0.0, 14.0, 0.0, 16.0, 16.0, 7.0));
+        Map<Direction, VoxelShape> bottomFrames = Shapes.rotateHorizontal(Block.box(0.0, 0.0, 0.0, 16.0, 2.0, 7.0));
+        Map<Direction, VoxelShape> leftFrames = Shapes.rotateHorizontal(Block.box(0.0, 0.0, 0.0, 2.0, 16.0, 7.0));
+        Map<Direction, VoxelShape> rightFrames = Shapes.rotateHorizontal(Block.box(14.0, 0.0, 0.0, 16.0, 16.0, 7.0));
         return this.getShapeForEachState(state -> {
             Direction facing = state.getValue(FACING);
             VoxelShape shape = panels.get(facing);
