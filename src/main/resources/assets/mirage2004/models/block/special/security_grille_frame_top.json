@@ -5,7 +5,7 @@
   "textures": { "particle": "#edge" },
   "elements": [
     {
-      "from": [0, 14, 4],
+      "from": [0, 14, 0],
       "to": [16, 16, 9],
       "faces": {
         "north": { "uv": [0, 0, 16, 2], "texture": "#edge" },

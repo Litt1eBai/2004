@@ -1531,7 +1531,9 @@ def _compose_frame_elements(pos_h: str, pos: str, slot="#frame") -> list[dict]:
 def _glass_elements(slot="#glass") -> list[dict]:
     """The state-independent glass pane: a full-cell box [0,0,7.5]->[16,16,8.5] so connected
     neighbours' panes meet at the cell border (no gap; on a framed side the rail covers the
-    edge). #glass = the mod glass (玻璃组), translucent + force_translucent."""
+    edge). Only the north/south faces are drawn -- the 1px-thick edge faces (west/east/up/down)
+    are omitted so the pane reads as a flat sheet. #glass = the mod glass (玻璃组), translucent +
+    force_translucent."""
     return [
         {
             "from": [0, 0, 7.5],
@@ -1539,10 +1541,6 @@ def _glass_elements(slot="#glass") -> list[dict]:
             "faces": {
                 "north": {"uv": [0, 0, 16, 16], "texture": slot},
                 "south": {"uv": [0, 0, 16, 16], "texture": slot},
-                "west": {"uv": [7.5, 0, 8.5, 16], "texture": slot},
-                "east": {"uv": [7.5, 0, 8.5, 16], "texture": slot},
-                "up": {"uv": [0, 7.5, 16, 8.5], "texture": slot},
-                "down": {"uv": [0, 7.5, 16, 8.5], "texture": slot},
             },
         }
     ]

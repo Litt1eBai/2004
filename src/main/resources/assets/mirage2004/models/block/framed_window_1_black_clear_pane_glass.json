@@ -38,42 +38,6 @@
             16
           ],
           "texture": "#glass"
-        },
-        "west": {
-          "uv": [
-            7.5,
-            0,
-            8.5,
-            16
-          ],
-          "texture": "#glass"
-        },
-        "east": {
-          "uv": [
-            7.5,
-            0,
-            8.5,
-            16
-          ],
-          "texture": "#glass"
-        },
-        "up": {
-          "uv": [
-            0,
-            7.5,
-            16,
-            8.5
-          ],
-          "texture": "#glass"
-        },
-        "down": {
-          "uv": [
-            0,
-            7.5,
-            16,
-            8.5
-          ],
-          "texture": "#glass"
         }
       }
     }
