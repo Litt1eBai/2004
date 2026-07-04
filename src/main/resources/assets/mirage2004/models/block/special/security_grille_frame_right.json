@@ -1,17 +1,17 @@
 {
-  "comment": "Right frame for mergeable security grille panels. NORTH-authored; x14-16 is right when looking toward NORTH.",
+  "comment": "Right frame for mergeable security grille panels. NORTH-authored; x14-16 is right when looking toward NORTH, full height; z0-7 up to the panel front.",
   "parent": "minecraft:block/block",
   "render_type": "minecraft:cutout",
   "textures": { "particle": "#edge" },
   "elements": [
     {
       "from": [14, 0, 0],
-      "to": [16, 16, 9],
+      "to": [16, 16, 7],
       "faces": {
         "north": { "uv": [14, 0, 16, 16], "texture": "#edge" },
-        "east": { "uv": [4, 0, 9, 16], "texture": "#edge" },
+        "east": { "uv": [4, 0, 13, 16], "texture": "#edge" },
         "south": { "uv": [14, 0, 16, 16], "texture": "#edge" },
-        "west": { "uv": [4, 0, 9, 16], "texture": "#edge" },
+        "west": { "uv": [4, 0, 13, 16], "texture": "#edge" },
         "up": { "uv": [14, 4, 16, 9], "texture": "#edge" },
         "down": { "uv": [14, 4, 16, 9], "texture": "#edge" }
       }

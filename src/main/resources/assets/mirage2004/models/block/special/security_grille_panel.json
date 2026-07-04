@@ -9,7 +9,11 @@
       "to": [16, 16, 9],
       "faces": {
         "north": { "uv": [0, 0, 16, 16], "texture": "#pane" },
-        "south": { "uv": [16, 0, 0, 16], "texture": "#pane" }
+        "east": { "uv": [0, 0, 2, 16], "texture": "#pane" },
+        "south": { "uv": [16, 0, 0, 16], "texture": "#pane" },
+        "west": { "uv": [0, 0, 2, 16], "texture": "#pane" },
+        "up": { "uv": [0, 0, 16, 2], "texture": "#pane" },
+        "down": { "uv": [0, 0, 16, 2], "texture": "#pane" }
       }
     }
   ]
