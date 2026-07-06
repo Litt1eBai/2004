@@ -1,19 +1,327 @@
 {
-  "comment": "Right frame for mergeable security grille panels. NORTH-authored; x14-16 is right when looking toward NORTH, full height; z0-7 up to the panel front.",
+  "comment": "Ported from _grille_preview (NORTH-authored). #pane supplied by the colour instance.",
   "parent": "minecraft:block/block",
-  "render_type": "minecraft:cutout",
-  "textures": { "particle": "#edge" },
+  "render_type": "minecraft:translucent",
+  "textures": {
+    "particle": "#pane"
+  },
   "elements": [
     {
-      "from": [14, 0, 0],
-      "to": [16, 16, 7],
+      "from": [
+        16,
+        0,
+        8
+      ],
+      "to": [
+        18,
+        16,
+        8
+      ],
+      "rotation": {
+        "angle": 0,
+        "axis": "y",
+        "origin": [
+          18,
+          0,
+          6
+        ]
+      },
       "faces": {
-        "north": { "uv": [14, 0, 16, 16], "texture": "#edge" },
-        "east": { "uv": [4, 0, 13, 16], "texture": "#edge" },
-        "south": { "uv": [14, 0, 16, 16], "texture": "#edge" },
-        "west": { "uv": [4, 0, 13, 16], "texture": "#edge" },
-        "up": { "uv": [14, 4, 16, 9], "texture": "#edge" },
-        "down": { "uv": [14, 4, 16, 9], "texture": "#edge" }
+        "north": {
+          "uv": [
+            5,
+            0,
+            3,
+            16
+          ],
+          "texture": "#pane"
+        },
+        "east": {
+          "uv": [
+            2,
+            0,
+            0,
+            16
+          ],
+          "texture": "#pane"
+        },
+        "south": {
+          "uv": [
+            5,
+            0,
+            3,
+            16
+          ],
+          "texture": "#pane"
+        },
+        "west": {
+          "uv": [
+            2,
+            0,
+            0,
+            16
+          ],
+          "texture": "#pane"
+        },
+        "up": {
+          "uv": [
+            2,
+            0,
+            0,
+            2
+          ],
+          "texture": "#pane"
+        },
+        "down": {
+          "uv": [
+            2,
+            0,
+            0,
+            2
+          ],
+          "texture": "#pane"
+        }
+      }
+    },
+    {
+      "from": [
+        18,
+        0,
+        0
+      ],
+      "to": [
+        18,
+        16,
+        8
+      ],
+      "rotation": {
+        "angle": 0,
+        "axis": "y",
+        "origin": [
+          20,
+          0,
+          0
+        ]
+      },
+      "faces": {
+        "north": {
+          "uv": [
+            4,
+            0,
+            2,
+            16
+          ],
+          "texture": "#pane"
+        },
+        "east": {
+          "uv": [
+            13,
+            0,
+            5,
+            16
+          ],
+          "texture": "#pane"
+        },
+        "south": {
+          "uv": [
+            4,
+            0,
+            2,
+            16
+          ],
+          "texture": "#pane"
+        },
+        "west": {
+          "uv": [
+            9,
+            0,
+            4,
+            16
+          ],
+          "texture": "#pane"
+        },
+        "up": {
+          "uv": [
+            4,
+            4,
+            2,
+            11
+          ],
+          "texture": "#pane"
+        },
+        "down": {
+          "uv": [
+            4,
+            4,
+            2,
+            11
+          ],
+          "texture": "#pane"
+        }
+      }
+    },
+    {
+      "from": [
+        17,
+        0,
+        0
+      ],
+      "to": [
+        19,
+        16,
+        9
+      ],
+      "rotation": {
+        "angle": 0,
+        "axis": "y",
+        "origin": [
+          19,
+          0,
+          0
+        ]
+      },
+      "faces": {
+        "up": {
+          "uv": [
+            4,
+            0,
+            2,
+            9
+          ],
+          "texture": "#pane"
+        },
+        "down": {
+          "uv": [
+            4,
+            0,
+            2,
+            9
+          ],
+          "texture": "#pane"
+        }
+      }
+    },
+    {
+      "from": [
+        16,
+        0,
+        7
+      ],
+      "to": [
+        17,
+        16,
+        9
+      ],
+      "rotation": {
+        "angle": 0,
+        "axis": "y",
+        "origin": [
+          17,
+          0,
+          0
+        ]
+      },
+      "faces": {
+        "up": {
+          "uv": [
+            3,
+            0,
+            2,
+            2
+          ],
+          "texture": "#pane"
+        },
+        "down": {
+          "uv": [
+            3,
+            0,
+            2,
+            2
+          ],
+          "texture": "#pane"
+        }
+      }
+    },
+    {
+      "from": [
+        17,
+        0.05,
+        7
+      ],
+      "to": [
+        16,
+        15.95,
+        9
+      ],
+      "rotation": {
+        "angle": 0,
+        "axis": "y",
+        "origin": [
+          16,
+          0,
+          0
+        ]
+      },
+      "faces": {
+        "up": {
+          "uv": [
+            3,
+            0,
+            2,
+            2
+          ],
+          "texture": "#pane"
+        },
+        "down": {
+          "uv": [
+            3,
+            0,
+            2,
+            2
+          ],
+          "texture": "#pane"
+        }
+      }
+    },
+    {
+      "from": [
+        19,
+        0.05,
+        0
+      ],
+      "to": [
+        17,
+        15.95,
+        9
+      ],
+      "rotation": {
+        "angle": 0,
+        "axis": "y",
+        "origin": [
+          17,
+          0,
+          0
+        ]
+      },
+      "faces": {
+        "up": {
+          "uv": [
+            4,
+            0,
+            2,
+            9
+          ],
+          "texture": "#pane"
+        },
+        "down": {
+          "uv": [
+            4,
+            0,
+            2,
+            9
+          ],
+          "texture": "#pane"
+        }
       }
     }
   ]

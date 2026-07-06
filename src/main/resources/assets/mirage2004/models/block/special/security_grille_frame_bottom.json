@@ -1,19 +1,68 @@
 {
-  "comment": "Bottom frame for mergeable security grille panels. NORTH-authored; protrudes toward the facing side (negative Z), z0-7 up to the panel front.",
+  "comment": "Ported from _grille_preview (NORTH-authored). #pane supplied by the colour instance.",
   "parent": "minecraft:block/block",
-  "render_type": "minecraft:cutout",
-  "textures": { "particle": "#edge" },
+  "render_type": "minecraft:translucent",
+  "textures": {
+    "particle": "#pane"
+  },
   "elements": [
     {
-      "from": [0, 0, 0],
-      "to": [16, 2, 7],
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        0,
+        7
+      ],
+      "rotation": {
+        "angle": 0,
+        "axis": "y",
+        "origin": [
+          0,
+          -16,
+          0
+        ]
+      },
       "faces": {
-        "north": { "uv": [0, 14, 16, 16], "texture": "#edge" },
-        "east": { "uv": [4, 14, 11, 16], "texture": "#edge" },
-        "south": { "uv": [0, 14, 16, 16], "texture": "#edge" },
-        "west": { "uv": [4, 14, 11, 16], "texture": "#edge" },
-        "up": { "uv": [0, 4, 16, 11], "texture": "#edge" },
-        "down": { "uv": [0, 4, 16, 11], "texture": "#edge" }
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            2
+          ],
+          "texture": "#pane"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            2
+          ],
+          "texture": "#pane"
+        },
+        "up": {
+          "uv": [
+            0,
+            4,
+            16,
+            11
+          ],
+          "texture": "#pane"
+        },
+        "down": {
+          "uv": [
+            0,
+            4,
+            16,
+            11
+          ],
+          "texture": "#pane"
+        }
       }
     }
   ]

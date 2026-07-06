@@ -1,19 +1,136 @@
 {
-  "comment": "Mergeable security grille panel body. NORTH-authored: a thin 16x16 cutout panel centered at z7-9. Border pieces supply the sealed edges.",
+  "comment": "Ported from _grille_preview (NORTH-authored). #pane supplied by the colour instance.",
   "parent": "minecraft:block/block",
-  "render_type": "minecraft:cutout",
-  "textures": { "particle": "#pane" },
+  "render_type": "minecraft:translucent",
+  "textures": {
+    "particle": "#pane"
+  },
   "elements": [
     {
-      "from": [0, 0, 7],
-      "to": [16, 16, 9],
+      "from": [
+        0,
+        0,
+        8
+      ],
+      "to": [
+        16,
+        16,
+        8
+      ],
+      "rotation": {
+        "angle": 0,
+        "axis": "y",
+        "origin": [
+          0,
+          0,
+          -1
+        ]
+      },
       "faces": {
-        "north": { "uv": [0, 0, 16, 16], "texture": "#pane" },
-        "east": { "uv": [0, 0, 2, 16], "texture": "#pane" },
-        "south": { "uv": [16, 0, 0, 16], "texture": "#pane" },
-        "west": { "uv": [0, 0, 2, 16], "texture": "#pane" },
-        "up": { "uv": [0, 0, 16, 2], "texture": "#pane" },
-        "down": { "uv": [0, 0, 16, 2], "texture": "#pane" }
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#pane"
+        },
+        "south": {
+          "uv": [
+            16,
+            0,
+            0,
+            16
+          ],
+          "texture": "#pane"
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        0,
+        7
+      ],
+      "to": [
+        16,
+        16,
+        9
+      ],
+      "rotation": {
+        "angle": 0,
+        "axis": "y",
+        "origin": [
+          0,
+          0,
+          7
+        ]
+      },
+      "faces": {
+        "up": {
+          "uv": [
+            2,
+            0,
+            4,
+            16
+          ],
+          "rotation": 90,
+          "texture": "#pane"
+        },
+        "down": {
+          "uv": [
+            2,
+            0,
+            4,
+            16
+          ],
+          "rotation": 90,
+          "texture": "#pane"
+        }
+      }
+    },
+    {
+      "from": [
+        16,
+        0.05,
+        7
+      ],
+      "to": [
+        0,
+        15.95,
+        9
+      ],
+      "rotation": {
+        "angle": 0,
+        "axis": "y",
+        "origin": [
+          8,
+          8,
+          0
+        ]
+      },
+      "faces": {
+        "up": {
+          "uv": [
+            2,
+            0,
+            4,
+            16
+          ],
+          "rotation": 90,
+          "texture": "#pane"
+        },
+        "down": {
+          "uv": [
+            2,
+            0,
+            4,
+            16
+          ],
+          "rotation": 90,
+          "texture": "#pane"
+        }
       }
     }
   ]
